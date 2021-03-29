@@ -67,7 +67,7 @@ class Game extends Component{
     }
     
     render(){
-      const gamestate = this.props.gamestate;
+      const gameState = this.props.gameState;
       
   
       return(
@@ -82,12 +82,12 @@ class Game extends Component{
         {!this.state.OpponentDisconnected && 
         <div className="game">
           <div className="board-container">
-            <Board gamestate={gamestate} isPlayer_one={this.props.isPlayer_one}/>
+            <Board gameState={gameState} isPlayer_one={this.props.isPlayer_one}/>
             
           </div>
           <div className="stats-container">
             {this.state.announcement && <Announcement>{this.state.message}</Announcement>}
-            {!this.state.announcement && <Stats gamestate={gamestate} isPlayer_one={this.props.isPlayer_one}/>}
+            {!this.state.announcement && <Stats gameState={gameState} isPlayer_one={this.props.isPlayer_one}/>}
           </div>
         </div>
         }

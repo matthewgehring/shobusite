@@ -10,22 +10,22 @@ export default class Stats extends Component {
     }
 
     render() {
-        const gamestate = this.props.gamestate;
+        const gameState = this.props.gameState;
         const isPlayer_one = this.props.isPlayer_one;
-        const opponent_name = (isPlayer_one)? gamestate.p2_name : gamestate.p1_name;
-        const wins = (isPlayer_one)?gamestate.p1_score:gamestate.p2_score;
-        const losses = (isPlayer_one)?gamestate.p2_score:gamestate.p1_score;
-        const ties = gamestate.ties;
-        console.log("this props", this.props.gamestate)
+        const opponent_name = (isPlayer_one)? gameState.p2_name : gameState.p1_name;
+        const wins = (isPlayer_one)?gameState.p1_score:gameState.p2_score;
+        const losses = (isPlayer_one)?gameState.p2_score:gameState.p1_score;
+        const ties = gameState.ties;
+        console.log("this props", this.props.gameState)
         return (
             <AnimatePresence>
             <motion.div className="stats" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
-                {gamestate.p1_turn === isPlayer_one &&
+                {gameState.p1_turn === isPlayer_one &&
                     <div className="turn">
                         <h5>Your Turn</h5>
                     </div>}
 
-                {gamestate.p1_turn !== isPlayer_one &&
+                {gameState.p1_turn !== isPlayer_one &&
                     <div className="turn" style={{display:"grid", gridTemplateRows:"1fr 1fr"}}>
                         <h5>{opponent_name}'s Turn</h5>
                         

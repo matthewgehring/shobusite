@@ -38,13 +38,13 @@ export default class Board extends Component {
 //note to self, when prop is changed state is not changed
     render = () => {
         
-        const gamestate = this.props.gamestate;
-        console.log(gamestate);
+        const gameState = this.props.gameState;
+        console.log(gameState);
     
         return (
             <div className="board">
-                {gamestate.grid0.map((value,index) => {
-                    return <Square val={value.toString()} key={index} index={index} gamestate={{isPlayer_one:this.props.isPlayer_one, ...gamestate}}/>
+                {gameState.grid0.map((value,index) => {
+                    return <Square val={value.toString()} key={index} index={index} gameState={{isPlayer_one:this.props.isPlayer_one, ...gameState}}/>
                 }) }
             </div>
 

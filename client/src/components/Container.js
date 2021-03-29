@@ -28,9 +28,11 @@ let initialState = {
             }
 
 const Container = () => {
-    const [state, setState] = React.useState(initialState)
-
+    let [state, setState] = React.useState(initialState);
+    let [didMount, setDidMount] = React.useState(false);
+    
     React.useEffect(()=>{
+        setDidMount(true)
         socket.on("session-created",(user,code)=>{setState({
             ...state,
             landing:false,
@@ -42,22 +44,30 @@ const Container = () => {
         })})
 
         socket.on("valid-code",(gs)=>{
-            console.log("gs", gs)
+            console.log("old state", state)  
             setState({
                 ...state,
                 lobby_waiting: false,
                 landing:false,
                 lobby:true,
                 gameState: {...gs}
-           })       
+           })
         })
+        console.log("new state", state)       
+        return () => {
+            setDidMount(false);
+        }
     }, [state]);
+
+    if(!didMount){
+        return null;
+    }
 
     return (
         <div>
             {state.landing && <Landing/>}
      
-            {state.lobby && <Lobby gamestate={state.gameState} waiting={state.lobby_waiting} code={state.code} isPlayer_one={state.isPlayer_one} /> }
+            {state.lobby && <Lobby gameState={state.gameState} waiting={state.lobby_waiting} code={state.code} isPlayer_one={state.isPlayer_one} /> }
         </div>
     )
 }
