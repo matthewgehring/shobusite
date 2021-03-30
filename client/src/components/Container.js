@@ -19,9 +19,10 @@ let initialState = {
                     p2_score: 0,
                     ties: 0,
                     p1_turn: true,
-                    grid0: [0,0,0,
-                        0,0,0,
-                        0,0,0]
+                    grid0: [0,0,0,0,
+                        0,0,0,0,
+                        0,0,0,0,
+                        0,0,0,0]
             
                 }
     

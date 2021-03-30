@@ -6,95 +6,97 @@ import Stats from './Stats';
 import Announcement from './Announcement';
 import socket from './../apis/port';
 
+const initialState={
+    announcement: false,
+    message: "",
+    OpponentDisconnected: false
+  }
 
+const Game = (props) => {
+    const [state, setState] = React.useState(initialState);
 
-class Game extends Component{
+    React.useEffect(()=>{
+        socket.on("announcement", (text)=>{
+            switch (text){
+              case "player_one":
+                if(props.isPlayer_one){
+                    setState({
+                        ...state,
+                        announcement:true,
+                        message: "You Won!"
+                    });
+                }
+                else{
+                    setState({
+                        ...state,
+                        announcement:true,
+                        message: "You Lost"
+                    }
+                  );
+                }
+                break;
+              case "player_two":
+                if(props.isPlayer_one){
+                    setState({
+                        ...state,
+                        announcement:true,
+                        message: "You Lost"
+                    });
+                }
+                else{
+                    setState({
+                        ...state,
+                        announcement:true,
+                        message: "You Won!"
+                    });
+                }
+                break;
+              case "tie":
+                  setState({
+                    ...state,
+                    announcement:true,
+                    message: "Tie"
+                    });
+                break;
+                //no default
+            }
 
-    state={
-      announcement: false,
-      message: "",
-      OpponentDisconnected: false
-    }
-    
-    componentDidMount=()=> {
-      socket.on("announcement", (text)=>{
-        switch (text){
-          case "player_one":
-            if(this.props.isPlayer_one){
-              this.setState({
-                announcement:true,
-                message: "You Won!"
-              });
-            }
-            else{
-              this.setState({
-                announcement:true,
-                message: "You Lost"
-              }
-              );
-            }
-            break;
-          case "player_two":
-            if(this.props.isPlayer_one){
-              this.setState({
-                announcement:true,
-                message: "You Lost"
-              });
-            }
-            else{
-              this.setState({
-                announcement:true,
-                message: "You Won!"
-              });
-            }
-            break;
-          case "tie":
-            this.setState({
-              announcement:true,
-              message: "Tie"
-            });
-            break;
-          
-        }
-        setTimeout(()=>{
-          this.setState({announcement: false});
-        }, 1250);
-      })
-  
-      socket.on("user-disconnected", ()=>{
-        this.setState({OpponentDisconnected:true});
-      })
-    }
-    
-    render(){
-      const gameState = this.props.gameState;
+            setTimeout(()=>{
+                setState({...state, announcement: false});
+            }, 1250);
+          })
       
-  
-      return(
+          socket.on("user-disconnected", ()=>{
+            setState({...state, OpponentDisconnected:true});
+          })
+    }, [state, props.isPlayer_one])
+
+    return(
         <div style={{display:"flex", alignItems:"center", justifyContent:"center", height:"100%"}}>
-        {this.state.OpponentDisconnected &&
+        {state.OpponentDisconnected &&
           <AnimatePresence>
             <motion.div style={{display:"flex", alignItems:"center", justifyContent:"center",height:"100%",position:"absolute",left:"0%",top:"0%",width:"100%"}}
             initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
               <h6>Opponent Disconnected :( </h6>
             </motion.div>
           </AnimatePresence>}
-        {!this.state.OpponentDisconnected && 
+        {!state.OpponentDisconnected && 
         <div className="game">
           <div className="board-container">
-            <Board gameState={gameState} isPlayer_one={this.props.isPlayer_one}/>
+            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
             
           </div>
           <div className="stats-container">
-            {this.state.announcement && <Announcement>{this.state.message}</Announcement>}
-            {!this.state.announcement && <Stats gameState={gameState} isPlayer_one={this.props.isPlayer_one}/>}
+            {state.announcement && <Announcement>{state.message}</Announcement>}
+            {!state.announcement && <Stats gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>}
           </div>
         </div>
         }
         </div>
       )
-      
-    }
-  }
+}
 
 export default Game;

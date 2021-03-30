@@ -10,9 +10,10 @@ class Session{
         p2_score: 0,
         ties: 0,
         p1_turn: true,
-        grid0: [0,0,0,
-            0,0,0,
-            0,0,0]
+        grid0: [0,0,0,0,
+            0,0,0,0,
+            0,0,0,0,
+            0,0,0,0]
 
     }
     
@@ -51,13 +52,13 @@ class Session{
             
             if(grid0[0]===1){
                 this.gameState.p1_score += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = false;
                 return "player_one";
             }
             else if(grid0[0]===-1){
                 this.gameState.p2_score += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = true;
                 return "player_two";
             }
@@ -68,13 +69,13 @@ class Session{
             
             if(grid0[3]===1){
                 this.gameState.p1_score += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = false;
                 return "player_one";
             }
             else if(grid0[3]===-1){
                 this.gameState.p2_score += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = true;
                 return "player_two";
             }
@@ -85,13 +86,13 @@ class Session{
             
             if(grid0[6]===1){
                 this.gameState.p1_score += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = false;
                 return "player_one";
             }
             else if(grid0[6]===-1){
                 this.gameState.p2_score += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = true;
                 return "player_two";
             }
@@ -106,13 +107,13 @@ class Session{
                 ){
                     if(grid0[j] === 1){
                         this.gameState.p1_score += 1;
-                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                         this.gameState.p1_turn = false;
                         return "player_one";
                     }
                     else if(grid0[j]===-1){
                         this.gameState.p2_score += 1;
-                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                         this.gameState.p1_turn = true;
                         return "player_two";
                     }
@@ -123,13 +124,13 @@ class Session{
             grid0[4] === grid0[8]){
                 if(grid0[0] === 1){
                     this.gameState.p1_score += 1;
-                    this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                    this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                     this.gameState.p1_turn = false;
                     return "player_one";
                 }
                 else if(grid0[0] === -1){
                     this.gameState.p2_score += 1;
-                    this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                    this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                     this.gameState.p1_turn = true;
                     return "player_two";
                 }
@@ -139,13 +140,13 @@ class Session{
                 grid0[4] === grid0[6]){
                     if(grid0[2] === 1){
                         this.gameState.p1_score += 1;
-                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                         this.gameState.p1_turn = false;
                         return "player_one";
                     }
                     else if (grid0[2] === -1){
                         this.gameState.p2_score += 1;
-                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                        this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                         this.gameState.p1_turn = true;
                         return "player_two";
                     }
@@ -154,7 +155,7 @@ class Session{
         else{
             if(this.isFullBoard()){
                 this.gameState.ties += 1;
-                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0];
+                this.gameState.grid0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                 this.gameState.p1_turn = !this.gameState.p1_turn;
                 return "tie";
             }

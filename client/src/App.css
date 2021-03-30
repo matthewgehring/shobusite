@@ -12,18 +12,10 @@
 
 }
 
-
-
-
 .session-btn{
   width: 45%;
-  margin: 0 auto;
-  
-  
-  
+  margin: 0 auto;  
 }
-
-
 
 .session-page{
   text-align: center;
@@ -51,7 +43,7 @@
   width: 100%;
 }
 
-.board-container{
+/* .board-container{
   position: absolute;
   
   height: 60%;
@@ -94,8 +86,8 @@
 
 .board {
   
-  width: 73vw;
-  height: 73vw;
+  width: 73vh;
+  height: 73vh;
   
   margin: 0 auto;
   background-color:black;
@@ -103,11 +95,14 @@
   display: grid;
   grid-template: repeat(3,1fr)/repeat(3,1fr);
   
-  border:0.5vw solid black;
+  border:0.5vw solid rgb(0, 0, 0);
   
   justify-self: center;
   
-  
+}
+
+.region0{
+
 }
 
 
@@ -122,8 +117,8 @@
   border:0.5vw solid rgb(0, 0, 0);
   
   transition: 0.3s;
-  height:24vw;
-  width: 24vw;
+  height:24vh;
+  width: 24vh;
 
 }
 
@@ -132,7 +127,7 @@
 .square-inner:active{
   font-size: 11vw;
   align-items: center;
-}
+} */
 
 div {
   -webkit-user-select: none;
@@ -153,7 +148,8 @@ div {
       padding-bottom: 4.5vh;
       padding-top: 4.5vh;
       top: 0vh;
-      display: flex;
+      display: grid;
+      grid-template: repeat(2, 3fr)/repeat(2, 3fr);
       align-items: center;
       justify-content: center;
       
@@ -161,16 +157,16 @@ div {
       
   .board {
       
-      width: 73vh;
-      height: 73vh;
+      width: 39vh;
+      height: 39vh;
       
       margin: 0 auto;
       background-color:black;
-      color: black;
+      color: rgb(0, 0, 0);
       display: grid;
-      grid-template: repeat(3,1fr)/repeat(3,1fr);
+      grid-template: repeat(4,1fr)/repeat(4,1fr);
       
-      border:0.5vh solid black;
+      border:0.5vh solid rgb(0, 0, 0);
       
       justify-self: center;
       
@@ -189,8 +185,8 @@ div {
       border:0.5vh solid rgb(0, 0, 0);
       
       transition: 0.3s;
-      height:24vh;
-      width: 24vh;
+      height:9vh;
+      width: 9vh;
 
   }
   .square-inner:active{
@@ -212,9 +208,5 @@ div {
   }
   .session-btn{
       width: 30%;
-      
-      
-      
-      
   }
 }

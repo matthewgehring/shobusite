@@ -20,9 +20,9 @@ import socket from './../apis/port';
     }
 
     playerMove = () => {
-        if(this.props.gameState.p1_turn === this.props.gameState.isPlayer_one
+        if(this.props.gameState.p1_turn === this.props.isPlayer_one
             && this.props.gameState.grid0[this.props.index]===0){
-                if(this.props.gameState.isPlayer_one){
+                if(this.props.isPlayer_one){
                     socket.emit("player-move", this.props.index, 1);
                     console.log("X");
                 }
