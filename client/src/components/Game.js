@@ -82,10 +82,10 @@ const Game = (props) => {
         {!state.OpponentDisconnected && 
         <div className="game">
           <div className="board-container">
-            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board region={0} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board region={1} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board region={2} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board region={3} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
             
           </div>
           <div className="stats-container">

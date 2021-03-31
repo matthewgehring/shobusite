@@ -16,7 +16,6 @@ var codeToSession = {}; //only for joining lobbies
 var SocketToSession ={};
 
 function socketEvents(socket){
-    console.log("made it")
     //session create (player 1)
     socket.on("create-session",(name)=> {
       //create new session and store it to two datastructures
@@ -45,6 +44,8 @@ function socketEvents(socket){
           
           
       })
+      console.log("code", codeToSession)
+      console.log("socket", SocketToSession)
     })
 
 
@@ -76,14 +77,15 @@ function socketEvents(socket){
         }
 
     
-        
+        console.log("code", codeToSession)
+        console.log("socket", SocketToSession)
     })
 
     //game logic
-    socket.on("player-move", (index,value)=> {
+    socket.on("player-move", (player, moves)=> {
 
         
-        SocketToSession[socket].PlayerMove(index,value);
+        SocketToSession[socket].PlayerMove(player, moves);
 
         
         switch(SocketToSession[socket].checkWinner()){
@@ -113,16 +115,9 @@ function socketEvents(socket){
         
 
     })
-
-
-
-    
-    }
+}
 
 io.on('connection',socketEvents);
-
-    
-
 
 const port = process.env.PORT || 8000;
 

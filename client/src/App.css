@@ -174,7 +174,10 @@ div {
   }
 
 
-
+  .piece{
+    height: 90%;
+    width: 90%;
+  }
   .square-inner{
       color: black;
       background-color: white;
