@@ -4,6 +4,7 @@ import Waiting from './Waiting'
 import socket from './../apis/port';
 
 const Lobby = (props) => {
+  
   const [state, setState] = React.useState(props);
 
   React.useEffect(()=>{

@@ -19,7 +19,6 @@ function socketEvents(socket){
     console.log("made it")
     //session create (player 1)
     socket.on("create-session",(name)=> {
-        console.log("here")
       //create new session and store it to two datastructures
       
       var code = Math.floor(Math.random()*1000000).toString();
@@ -69,7 +68,7 @@ function socketEvents(socket){
 
                 }
                 catch(err){
-                    ;
+                    console.log(err);
                 }
                 
                 delete SocketToSession[socket];

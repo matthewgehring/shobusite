@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import {motion,AnimatePresence} from 'framer-motion';
-import {Button, Spinner} from 'reactstrap';
 import Board from './Board';
 import Stats from './Stats';
 import Announcement from './Announcement';

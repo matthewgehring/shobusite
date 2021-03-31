@@ -3,7 +3,6 @@ import socket from './../apis/port';
 
  export default class Square extends Component{
 
-
     renderValue = (val) => { //converts a value index to a string
         if (val === "1"){
             //return "✖"
@@ -33,7 +32,6 @@ import socket from './../apis/port';
         }
     }
     
-
     render(){
         return(
             <div className="square-inner" onClick={this.playerMove}>

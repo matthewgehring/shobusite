@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Landing from "./landing";
+import React from 'react'
+import Landing from "./Landing";
 import Lobby from './Lobby';
 import socket from './../apis/port';
 

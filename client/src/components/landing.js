@@ -1,10 +1,10 @@
 import React, { Component, useState } from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, NavLink, Nav} from 'reactstrap';
-import CreateSession from './createSession';
+import CreateSession from './CreateSession';
 import JoinSession from './joinSession';
 import {Link,Route,Switch} from 'react-router-dom';
 import { AnimatePresence,motion } from 'framer-motion';
-import socket from './../apis/port';
+import socket from '../apis/port';
 
 
 const Landing = props => {
@@ -19,7 +19,7 @@ const Landing = props => {
     return (
         <AnimatePresence>
         <motion.div className="landing" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
-            <h1 className="title">O Tic-Tac-Toe</h1>
+            <h1 className="title">Shobu</h1>
             
                 <Button className="session-btn" color="primary" size="md" onClick={create_toggle} >Create Session</Button>
                 <Modal isOpen={modal_create} toggle={create_toggle}>
