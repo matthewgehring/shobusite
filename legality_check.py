@@ -225,4 +225,5 @@ board_history=[board]
 
 board,board_history=update_board(board,sys.argv[1], move(sys.argv[2]), move(sys.argv[3]), move(sys.argv[4]), board_history)
 print(board)
+#TODO: make board less shit (convert to strings)
 #print(board)

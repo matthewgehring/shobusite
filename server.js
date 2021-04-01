@@ -44,8 +44,8 @@ function socketEvents(socket){
           
           
       })
-      console.log("code", codeToSession)
-      console.log("socket", SocketToSession)
+    //   console.log("code", codeToSession)
+    //   console.log("socket", SocketToSession)
     })
 
 
@@ -77,8 +77,8 @@ function socketEvents(socket){
         }
 
     
-        console.log("code", codeToSession)
-        console.log("socket", SocketToSession)
+        // console.log("code", codeToSession)
+        // console.log("socket", SocketToSession)
     })
 
     //game logic
