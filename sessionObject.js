@@ -15,19 +15,19 @@ class Session{
         grids: [[1,1,1,1,
             0,0,0,0,
             0,0,0,0,
-            -1,-1,-1,-1],
+            2,2,2,2],
             [1,1,1,1,
             0,0,0,0,
             0,0,0,0,
-            -1,-1,-1,-1],
+            2,2,2,2],
             [1,1,1,1,
             0,0,0,0,
             0,0,0,0,
-            -1,-1,-1,-1],
+            2,2,2,2],
             [1,1,1,1,
             0,0,0,0,
             0,0,0,0,
-            -1,-1,-1,-1]]
+            2,2,2,2]]
     }
     
 
@@ -54,19 +54,26 @@ class Session{
         let board = this.getBoard(player, moveArr)
         console.log("made it", board);
         //this.gameState.grids[region][index]=value;
-        //this.gameState.p1_turn = !this.gameState.p1_turn
+        this.gameState.p1_turn = !this.gameState.p1_turn
     }
 
+    updateBoard = (data) => {
+        console.log(data);
+        for(let idx=0; idx<4; idx++){
+            this.gameState.grids[idx] = data[idx].split('')
+        }
+    }
     getBoard = (player, moveArr) => {
         console.log("here", player)
-        var dataToSend = [];
+        var dataToSend;
         // spawn new child process to call the python script
         const python = spawn('python', ['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2]]);
         // collect data from script
         python.stdout.on('data', (data) => {
         console.log('Pipe data from python script ...');
-        dataToSend.push(data.toString());
-        console.log(dataToSend);
+        dataToSend = data.toString();
+        dataToSend = dataToSend.replace('\r\n', '')
+        this.updateBoard(dataToSend.split('$'));
         });
         // in close event we are sure that stream from child process is closed
         python.on('close', (code) => {

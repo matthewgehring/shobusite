@@ -15,12 +15,12 @@ const Square = (props) => {
             && moves.length === 3){
                 if(props.isPlayer_one){
                     console.log(3)
-                    socket.emit("player-move", 'b', moves);
+                    socket.emit("player-move", '1', moves);
                     moves = [];
                     console.log("X");
                 }
                 else{
-                    socket.emit("player-move", 'w', moves);
+                    socket.emit("player-move", '2', moves);
                     moves = [];
                     console.log("O");
                 }
@@ -33,7 +33,7 @@ const Square = (props) => {
                 return "/assets/black.png"
                 
             }
-            else if (val === "-1"){
+            else if (val === "2"){
                 return "/assets/white.png"
                 //return "○"
             }
