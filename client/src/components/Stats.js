@@ -16,7 +16,6 @@ export default class Stats extends Component {
         const wins = (isPlayer_one)?gameState.p1_score:gameState.p2_score;
         const losses = (isPlayer_one)?gameState.p2_score:gameState.p1_score;
         const ties = gameState.ties;
-        console.log("this props", this.props.gameState)
         return (
             <AnimatePresence>
             <motion.div className="stats" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>

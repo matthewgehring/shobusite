@@ -7,22 +7,18 @@ const Square = (props) => {
         
     
     const playerMove = (props) => {
-        console.log("in moves");
-        if (moves.length < 3){
+        if (moves.length < 2){
             moves.push([ props.region, props.index])
-            console.log(moves, "2")
         }else if(props.gameState.p1_turn === props.isPlayer_one
-            && moves.length === 3){
+            && moves.length === 2){
+                moves.push([ props.region, props.index])
                 if(props.isPlayer_one){
-                    console.log(3)
                     socket.emit("player-move", '1', moves);
-                    moves = [];
-                    console.log("X");
+                    moves.length = 0;
                 }
                 else{
                     socket.emit("player-move", '2', moves);
-                    moves = [];
-                    console.log("O");
+                    moves.length = 0;
                 }
             }
         }

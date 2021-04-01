@@ -52,7 +52,6 @@ class Session{
         let moveArr = moves.map(move => `${move[0]}, ${ ~~(move[1]/4)}, ${move[1]%4}`)
         console.log(moveArr)
         let board = this.getBoard(player, moveArr)
-        console.log("made it", board);
         //this.gameState.grids[region][index]=value;
         this.gameState.p1_turn = !this.gameState.p1_turn
     }
@@ -62,12 +61,14 @@ class Session{
         for(let idx=0; idx<4; idx++){
             this.gameState.grids[idx] = data[idx].split('')
         }
+        this.Broadcast("update",this.gameState);
     }
     getBoard = (player, moveArr) => {
         console.log("here", player)
         var dataToSend;
         // spawn new child process to call the python script
-        const python = spawn('python', ['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2]]);
+        console.log(['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`])
+        const python = spawn('python', ['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`]);
         // collect data from script
         python.stdout.on('data', (data) => {
         console.log('Pipe data from python script ...');

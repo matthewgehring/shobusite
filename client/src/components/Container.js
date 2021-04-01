@@ -56,8 +56,7 @@ const Container = () => {
             isPlayer_one:true //if you created the session, you are player one. 
         })})
 
-        socket.on("valid-code",(gs)=>{
-            console.log("old state", state)  
+        socket.on("valid-code",(gs)=>{ 
             setState({
                 ...state,
                 lobby_waiting: false,
@@ -65,8 +64,7 @@ const Container = () => {
                 lobby:true,
                 gameState: {...gs}
            })
-        })
-        console.log("new state", state)       
+        })      
         return () => {
             setDidMount(false);
         }

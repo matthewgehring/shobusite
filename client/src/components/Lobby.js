@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import Game from './Game'
 import Waiting from './Waiting'
 import socket from './../apis/port';
@@ -9,12 +9,13 @@ const Lobby = (props) => {
 
   React.useEffect(()=>{
     socket.on("update",(gs)=> {
+      console.log("got hit")
       setState({
         ...state,
         gameState: gs
       })
     })
-  }, [state]);
+  }, [state, state.gameState]);
 
       
     return(
