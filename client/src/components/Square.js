@@ -13,6 +13,7 @@ const Square = (props) => {
             && moves.length === 2){
                 moves.push([ props.region, props.index])
                 if(props.isPlayer_one){
+                    console.log(socket.id)
                     socket.emit("player-move", '1', moves);
                     moves.length = 0;
                 }
