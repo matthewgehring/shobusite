@@ -89,7 +89,7 @@ def aggressive_move( color, opponent, passive_board, stone_coordinate, vector, u
         return False
         
     if stone_coordinate[0] % 2 == passive_board % 2:
-        print('Error: stone must be played on opposite colored board as your passive move')                 #must play on boards of opposite parity
+        print('error: stone must be played on opposite colored board as your passive move')                 #must play on boards of opposite parity
         return False
         
     if board[stone_coordinate[0]][stone_coordinate[1]][stone_coordinate[2]]!=color:    #checks if you're selecting your own stone
@@ -141,13 +141,23 @@ def update_board(board, color, init_stone, init_move, aggro_stone,board_history=
             update_board_pos(aggressive_moved, color, updated_board)
             if obtain_board_pos(aggressive_moved) == opponent:
                 out_of_bounds=update_board_pos(aggressive_moved+unit_vector, opponent, updated_board)
+                if out_of_bounds==True:
+                    print(opponent + ' stone removed from the board')
+                else:
+                    print(opponent + ' stone pushed from ' + str(aggressive_moved) + ' to ' + str(
+                    aggressive_moved + unit_vector))
             if obtain_board_pos(aggressive_moved) == '0' and obtain_board_pos(aggressive_moved - unit_vector) == opponent:
                 update_board_pos(aggressive_moved-unit_vector,'0', updated_board)
                 out_of_bounds= update_board_pos(aggressive_moved+unit_vector,opponent,updated_board)
+                if out_of_bounds==True:
+                    print(opponent + ' stone removed from the board')
+                else:
+                    print(opponent + ' stone pushed from ' + str(aggressive_moved) + ' to ' + str(
+                    aggressive_moved + unit_vector))
             #board_history+=updated_board
             board_history.append(updated_board)
         else:
-            print('Error: illegal move')
+            print('illegal move')
 
         return updated_board,board_history
 

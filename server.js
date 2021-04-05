@@ -16,7 +16,6 @@ var codeToSession = {}; //only for joining lobbies
 var SocketToSession ={};
 
 function socketEvents(socket){
-    console.log(socket.id)
     //session create (player 1)
     socket.on("create-session",(name)=> {
       //create new session and store it to two datastructures
@@ -28,25 +27,25 @@ function socketEvents(socket){
                        [code]:session };
         
       SocketToSession = {...SocketToSession,
-                        [socket.id]:session};
+                        [socket]:session};
       
       
       socket.emit("session-created",name,code);
       socket.on("disconnect", ()=> {
           try{
-            SocketToSession[socket.id].player_two_socket.emit("user-disconnected");
+            SocketToSession[socket].player_two_socket.emit("user-disconnected");
           }
           catch(err){
               ;
           }
           
           delete codeToSession[code];
-          delete SocketToSession[socket.id];
+          delete SocketToSession[socket];
           
           
       })
-      console.log("code", codeToSession)
-      console.log("socket", SocketToSession)
+    //   console.log("code", codeToSession)
+    //   console.log("socket", SocketToSession)
     })
 
 
@@ -61,46 +60,46 @@ function socketEvents(socket){
             codeToSession[code].JoinSession(name,socket);
             codeToSession[code].Broadcast("valid-code",codeToSession[code].gameState);
             SocketToSession = {...SocketToSession,
-            [socket.id]: codeToSession[code]};
+            [socket]: codeToSession[code]};
 
             delete codeToSession[code];
             socket.on("disconnect", ()=> {
                 try{
-                    SocketToSession[socket.id].player_one_socket.emit("user-disconnected");
+                    SocketToSession[socket].player_one_socket.emit("user-disconnected");
 
                 }
                 catch(err){
                     console.log(err);
                 }
                 
-                delete SocketToSession[socket.id];
+                delete SocketToSession[socket];
             })
         }
 
     
-        console.log("code", codeToSession)
-        console.log("socket", SocketToSession)
+        // console.log("code", codeToSession)
+        // console.log("socket", SocketToSession)
     })
 
     //game logic
     socket.on("player-move", (player, moves)=> {
 
         
-        SocketToSession[socket.id].PlayerMove(player, moves);
+        SocketToSession[socket].PlayerMove(player, moves);
 
         
-        switch(SocketToSession[socket.id].checkWinner()){
+        switch(SocketToSession[socket].checkWinner()){
             case "player_one":
                 
-                SocketToSession[socket.id].Broadcast("announcement","player_one");
+                SocketToSession[socket].Broadcast("announcement","player_one");
                 break;
             case "player_two":
                 
-                SocketToSession[socket.id].Broadcast("announcement","player_two");
+                SocketToSession[socket].Broadcast("announcement","player_two");
                 break;
             case "tie":
                 
-                SocketToSession[socket.id].Broadcast("announcement","tie");
+                SocketToSession[socket].Broadcast("announcement","tie");
                 break;
             case "ongoing":
                 
@@ -112,7 +111,7 @@ function socketEvents(socket){
         
         
         //TODO: check winners before broadcasting
-        SocketToSession[socket.id].Broadcast("update",SocketToSession[socket.id].gameState);
+        SocketToSession[socket].Broadcast("update",SocketToSession[socket].gameState);
         
 
     })
