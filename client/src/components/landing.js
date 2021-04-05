@@ -1,16 +1,13 @@
-import React, { Component, useState } from 'react';
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, NavLink, Nav} from 'reactstrap';
-import CreateSession from './CreateSession';
+import React from 'react';
+import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import CreateSession from './createSession';
 import JoinSession from './joinSession';
-import {Link,Route,Switch} from 'react-router-dom';
 import { AnimatePresence,motion } from 'framer-motion';
-import socket from '../apis/port';
-
 
 const Landing = props => {
    
-    const [modal_create, setModal_create] = useState(false);
-    const [modal_join, setModal_join] = useState(false);
+    const [modal_create, setModal_create] = React.useState(false);
+    const [modal_join, setModal_join] = React.useState(false);
       
     const create_toggle = () => setModal_create(!modal_create);
     const join_toggle = () => setModal_join(!modal_join);
