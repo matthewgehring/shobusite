@@ -1,10 +1,5 @@
 import numpy as np
-import colorama
-from colorama import Fore
-from colorama import Style
 import sys
-
-colorama.init()
 
 unit_vectors = np.array([[0, 1, 0], [0, 0, 1], [0, 1, 1], [0, 1, -1], [0, -1, 1], [0, -1, 0], [0, 0, -1],
                          [0, -1, -1]])  # defines the legal vectors for stone movement up to two spaces
@@ -141,23 +136,13 @@ def update_board(board, color, init_stone, init_move, aggro_stone,board_history=
             update_board_pos(aggressive_moved, color, updated_board)
             if obtain_board_pos(aggressive_moved) == opponent:
                 out_of_bounds=update_board_pos(aggressive_moved+unit_vector, opponent, updated_board)
-                if out_of_bounds==True:
-                    print(opponent + ' stone removed from the board')
-                else:
-                    print(opponent + ' stone pushed from ' + str(aggressive_moved) + ' to ' + str(
-                    aggressive_moved + unit_vector))
             if obtain_board_pos(aggressive_moved) == '0' and obtain_board_pos(aggressive_moved - unit_vector) == opponent:
                 update_board_pos(aggressive_moved-unit_vector,'0', updated_board)
                 out_of_bounds= update_board_pos(aggressive_moved+unit_vector,opponent,updated_board)
-                if out_of_bounds==True:
-                    print(opponent + ' stone removed from the board')
-                else:
-                    print(opponent + ' stone pushed from ' + str(aggressive_moved) + ' to ' + str(
-                    aggressive_moved + unit_vector))
             #board_history+=updated_board
             board_history.append(updated_board)
         else:
-            print('illegal move')
+            print('Error: illegal move')
 
         return updated_board,board_history
 
