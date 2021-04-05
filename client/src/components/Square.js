@@ -50,7 +50,6 @@ const Square = (props) => {
     
     return(
         <div className={"square-inner" + (highlight ? " highlight" : "")} onClick={playerMove.bind(null, props)}>
-            {/* {this.renderValue(this.props.val)} */}
             {renderValue(props.val) && <img className="piece" src={renderValue(props.val)} alt="" />}
         </div>
     
