@@ -9,7 +9,7 @@ const io = require('socket.io')(server, {
 const path = require('path');
 
 
-const Session = require('./SessionObject').Session;
+const Session = require('./sessionObject').Session;
 
 
 var codeToSession = {}; //only for joining lobbies
