@@ -2,7 +2,6 @@ import React from 'react';
 import {InputGroup,Input, Button} from 'reactstrap';
 import socket from '../apis/port';
 
-
 const CreateSession = () => {
 
     const [state, setState] = React.useState({player1_name:""});
