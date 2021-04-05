@@ -73,8 +73,12 @@ class Session{
         python.stdout.on('data', (data) => {
         console.log('Pipe data from python script ...');
         dataToSend = data.toString();
-        dataToSend = dataToSend.replace('\r\n', '')
-        this.updateBoard(dataToSend.split('$'));
+        dataToSend = dataToSend.replace(/(\r\n|\r|\n)/, '')
+        if(!dataToSend.includes("Error")){
+            this.updateBoard(dataToSend.split('$'));
+        } else {
+            this.Broadcast("update",this.gameState);
+        }
         });
         // in close event we are sure that stream from child process is closed
         python.on('close', (code) => {
