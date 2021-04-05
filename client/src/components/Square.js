@@ -33,7 +33,7 @@ const Square = (props) => {
                 return "/assets/black.png"
                 
             }
-            else if (val === g"2"){
+            else if (val === "2"){
                 return "/assets/white.png"
                 //return "○"
             }
