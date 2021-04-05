@@ -192,6 +192,10 @@ div {
       width: 9vh;
 
   }
+
+  .highlight{
+    background-color: greenyellow;
+  }
   .square-inner:active{
       font-size: 11vh;
       align-items: center;
