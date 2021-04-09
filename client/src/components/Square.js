@@ -45,8 +45,8 @@ const Square = (props) => {
         React.useEffect(()=>{
             setTimeout(()=>{
                 setHighlight(false);
-            }, 1000);
-        }, [props])
+            }, 500);
+        }, [props.gameState.p1_turn])
     
     return(
         <div className={"square-inner" + (highlight ? " highlight" : "")} onClick={playerMove.bind(null, props)}>
