@@ -50,8 +50,8 @@ const Square = (props) => {
             setTimeout(()=>{
                 console.log("20 Square.js setstate");
                 setHighlight(false);
-            }, 1000);
-        }, [props])
+            }, 500);
+        }, [props.gameState.p1_turn])
     
     return(
         <div className={"square-inner" + (highlight ? " highlight" : "")} onClick={playerMove.bind(null, props)}>
