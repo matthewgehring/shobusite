@@ -11,7 +11,6 @@ export default class joinSession extends Component {
         invalid: false
     }
     updateForm = (event) => {
-        console.log("12 joinSession.js setstate");
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -27,7 +26,6 @@ export default class joinSession extends Component {
 
     componentDidMount(){
         socket.on("invalid-code",()=>{
-            console.log("13 joinSession.js setstate");
             this.setState({invalid:true});
         })
         

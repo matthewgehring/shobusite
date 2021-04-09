@@ -8,7 +8,6 @@ const Square = (props) => {
     const [highlight, setHighlight] = React.useState(false);
 
     const playerMove = (props) => {
-        console.log("17 Square.js setstate");
         setHighlight(!highlight);
         if (moves.length < 2){
             moves.push([ props.region, props.index])
@@ -16,13 +15,11 @@ const Square = (props) => {
             && moves.length === 2){
                 moves.push([ props.region, props.index])
                 if(props.isPlayer_one){
-                    console.log("18 Square.js setstate");
                     setHighlight(!highlight);
                     socket.emit("player-move", '1', moves);
                     moves.length = 0;
                 }
                 else{
-                    console.log("19 Square.js setstate");
                     setHighlight(!highlight);
                     socket.emit("player-move", '2', moves);
                     moves.length = 0;
@@ -46,9 +43,7 @@ const Square = (props) => {
         }
 
         React.useEffect(()=>{
-            console.log("#4 Square.js Useeffect")
             setTimeout(()=>{
-                console.log("20 Square.js setstate");
                 setHighlight(false);
             }, 500);
         }, [props.gameState.p1_turn])

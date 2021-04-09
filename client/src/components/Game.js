@@ -15,12 +15,10 @@ const Game = (props) => {
     const [state, setState] = React.useState(initialState);
 
     React.useEffect(()=>{
-      console.log("#2 Game.js Useeffect")
         socket.on("announcement", (text)=>{
             switch (text){
               case "player_one":
                 if(props.isPlayer_one){
-                  console.log("5 Game.js setstate");
                     setState({
                         ...state,
                         announcement:true,
@@ -28,7 +26,6 @@ const Game = (props) => {
                     });
                 }
                 else{
-                  console.log("6 Game.js setstate");
                     setState({
                         ...state,
                         announcement:true,
@@ -39,7 +36,6 @@ const Game = (props) => {
                 break;
               case "player_two":
                 if(props.isPlayer_one){
-                  console.log("7 Game.js setstate");
                     setState({
                         ...state,
                         announcement:true,
@@ -47,7 +43,6 @@ const Game = (props) => {
                     });
                 }
                 else{
-                  console.log("8 Game.js setstate");
                     setState({
                         ...state,
                         announcement:true,
@@ -56,7 +51,6 @@ const Game = (props) => {
                 }
                 break;
               case "tie":
-                  console.log("9 Game.js setstate");
                   setState({
                     ...state,
                     announcement:true,
@@ -67,13 +61,11 @@ const Game = (props) => {
             }
 
             setTimeout(()=>{
-                console.log("10 Game.js setstate");
                 setState({...state, announcement: false});
             }, 1250);
           })
       
           socket.on("user-disconnected", ()=>{
-            console.log("11 Game.js setstate");
             setState({...state, OpponentDisconnected:true});
           })
     }, [state, props.isPlayer_one])
