@@ -17,15 +17,15 @@ const Landing = props => {
         <AnimatePresence>
         <motion.div className="landing" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
             <h1 className="title">Shobu</h1>
-            
-                <Button className="session-btn" color="primary" size="md" onClick={create_toggle} >Create Session</Button>
+                /* So I tried to pass the console.log create_toggle function into the onclick hopefully no syntax erros - Dev*/
+                <Button className="session-btn" color="primary" size="md" onClick={() => {create_toggle;console.log("14 landing.js setstate");}} >Create Session</Button>
                 <Modal isOpen={modal_create} toggle={create_toggle}>
                     <ModalHeader toggle={create_toggle}></ModalHeader>
                     <ModalBody>
                         <CreateSession/>
                     </ModalBody>
                 </Modal>
-                <Button className="session-btn" color="primary" size="md" onClick={join_toggle}>Join Session</Button>
+                <Button className="session-btn" color="primary" size="md" onClick={() => {join_toggle;console.log("15 landing.js setstate");}}>Join Session</Button>
                 <Modal isOpen={modal_join} toggle={join_toggle}>
                     <ModalHeader toggle={join_toggle}></ModalHeader>
                     <ModalBody>

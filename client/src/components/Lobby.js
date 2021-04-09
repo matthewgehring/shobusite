@@ -8,8 +8,9 @@ const Lobby = (props) => {
   const [state, setState] = React.useState(props);
 
   React.useEffect(()=>{
+    console.log("#3 Lobby.js Useeffect")
     socket.on("update",(gs)=> {
-      console.log("got hit")
+      console.log("16 Lobby.js setstate");
       setState({
         ...state,
         gameState: gs
