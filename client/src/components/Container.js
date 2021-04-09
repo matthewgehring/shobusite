@@ -45,8 +45,11 @@ const Container = () => {
     let [didMount, setDidMount] = React.useState(false);
     
     React.useEffect(()=>{
+        console.log("#1 Container.js Useeffect");
         setDidMount(true)
-        socket.on("session-created",(user,code)=>{setState({
+        socket.on("session-created",(user,code)=>{
+            console.log("1 Container setstate/setdidmount");
+            setState({
             ...state,
             landing:false,
             lobby:true,
@@ -57,6 +60,7 @@ const Container = () => {
         })})
 
         socket.on("valid-code",(gs)=>{ 
+            console.log("2 Container setstate");
             setState({
                 ...state,
                 lobby_waiting: false,
@@ -66,6 +70,7 @@ const Container = () => {
            })
         })      
         return () => {
+            console.log("3 Container setDidmount");
             setDidMount(false);
         }
     }, [state]);

@@ -7,6 +7,7 @@ const CreateSession = () => {
     const [state, setState] = React.useState({player1_name:""});
 
     const updateForm = (e) => {
+        console.log("4 createSession.js setstate");
         setState({
             player1_name: e.target.value
             }
