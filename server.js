@@ -1,3 +1,5 @@
+//TODO: implement UUID for session codes
+
 const express = require('express');
 const app = require('express')();
 const server = require('http').createServer(app);
@@ -7,46 +9,43 @@ const io = require('socket.io')(server, {
       }
 });
 const path = require('path');
-
-
 const Session = require('./sessionObject').Session;
-
 
 var codeToSession = {}; //only for joining lobbies
 var SocketToSession ={};
 
 function socketEvents(socket){
-    console.log(socket.id)
     //session create (player 1)
     socket.on("create-session",(name)=> {
-      //create new session and store it to two datastructures
-      
-      var code = Math.floor(Math.random()*1000000).toString();
-      const session = new Session(name,socket,code);
+        //create new session and store it to two datastructures
+        //first create a unique code
+        //TODO: Replace this we a UUID
+        var code = Math.floor(Math.random()*1000000).toString();
+        const session = new Session(name,socket,code);
 
-      codeToSession = {...codeToSession, 
-                       [code]:session };
+        codeToSession = {...codeToSession, 
+                        [code]:session };
         
-      SocketToSession = {...SocketToSession,
+        SocketToSession = {...SocketToSession,
                         [socket.id]:session};
-      
-      
-      socket.emit("session-created",name,code);
-      socket.on("disconnect", ()=> {
-          try{
+        
+        
+        socket.emit("session-created",name,code);
+        socket.on("disconnect", ()=> {
+            try{
             SocketToSession[socket.id].player_two_socket.emit("user-disconnected");
-          }
-          catch(err){
-              ;
-          }
-          
-          delete codeToSession[code];
-          delete SocketToSession[socket.id];
-          
-          
-      })
-      console.log("code", codeToSession)
-      console.log("socket", SocketToSession)
+            }
+            catch(err){
+                ;
+            }
+            
+            delete codeToSession[code];
+            delete SocketToSession[socket.id];
+            
+            
+        })
+        // console.log("code", codeToSession)
+        // console.log("socket", SocketToSession)
     })
 
 
@@ -78,8 +77,8 @@ function socketEvents(socket){
         }
 
     
-        console.log("code", codeToSession)
-        console.log("socket", SocketToSession)
+        // console.log("code", codeToSession)
+        // console.log("socket", SocketToSession)
     })
 
     //game logic
