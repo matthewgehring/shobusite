@@ -48,26 +48,26 @@ class Session{
     }
   
     PlayerMove=(player, moves)=> {
-        console.log("moves", moves[0][0])
         let moveArr = moves.map(move => `${move[0]}, ${ ~~(move[1]/4)}, ${move[1]%4}`)
-        console.log(moveArr)
+        console.log(moves)
         let board = this.getBoard(player, moveArr)
         //this.gameState.grids[region][index]=value;
         this.gameState.p1_turn = !this.gameState.p1_turn
     }
 
     updateBoard = (data) => {
-        console.log(data);
+        // console.log(data);
         for(let idx=0; idx<4; idx++){
             this.gameState.grids[idx] = data[idx].split('')
         }
         this.Broadcast("update",this.gameState);
     }
+
     getBoard = (player, moveArr) => {
-        console.log("here", player)
         var dataToSend;
+        // console.log(moveArr)
         // spawn new child process to call the python script
-        console.log(['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`])
+        // console.log(['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`])
         const python = spawn('python', ['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`]);
         // collect data from script
         python.stdout.on('data', (data) => {
@@ -82,7 +82,7 @@ class Session{
         });
         // in close event we are sure that stream from child process is closed
         python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
+            console.log(`child process close all stdio with code ${code}`);
         })
     }
 
