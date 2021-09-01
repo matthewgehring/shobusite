@@ -14,7 +14,7 @@ const Landing = props => {
 
     
     return (
-        <AnimatePresence>
+        <AnimatePresence >
         <motion.div className="landing" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
             <h1 className="title">Shobu</h1>
                 <Button className="session-btn" color="primary" size="md" onClick={create_toggle} >Create Session</Button>
