@@ -79,10 +79,10 @@ function App() {
   return (
     
     <div className="App">
-      <Navigation
+      {/* <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={onRouteChange}
-        />
+        /> */}
         <div>
           <Container/>
         </div>
