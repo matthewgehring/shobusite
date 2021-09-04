@@ -9,13 +9,12 @@ const Lobby = (props) => {
 
   React.useEffect(()=>{
     socket.on("update",(gs)=> {
-      console.log("got hit")
       setState({
         ...state,
         gameState: gs
       })
     })
-  }, [state, state.gameState]);
+  }, [state.gameState]);
 
       
     return(

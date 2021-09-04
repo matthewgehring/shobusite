@@ -46,7 +46,8 @@ const Container = () => {
     
     React.useEffect(()=>{
         setDidMount(true)
-        socket.on("session-created",(user,code)=>{setState({
+        socket.on("session-created",(user,code)=>{
+            setState({
             ...state,
             landing:false,
             lobby:true,

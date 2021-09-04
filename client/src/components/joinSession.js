@@ -11,7 +11,6 @@ export default class joinSession extends Component {
         invalid: false
     }
     updateForm = (event) => {
-        
         this.setState({
             [event.target.name]: event.target.value
         })
