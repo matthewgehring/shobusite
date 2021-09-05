@@ -1,3 +1,20 @@
+# README
+#  Board coordinates respond to list index follows:
+#   0  1  2  3      16 17 18 19
+#   4  5  6  7      20 21 22 23
+#   8  9  10 11     24 25 26 27
+#   12 13 14 15     28 29 30 31
+#
+#   32 33 34 35     48 49 50 51
+#   36 37 38 39     52 53 54 55
+#   40 41 42 43     56 57 58 59
+#   44 45 46 47     60 61 62 63
+#
+#   Thus, the movement vector for moving vertically up 1 space would be -4, for moving to the right +1, to the left -1, etc.
+#   input1 is the initial passive stone coordinate, input2 is the passive stones desired location, and input3 is the aggressive stone coordinate.
+#   'b' is a black stone, 'w' is a white stone, 'x' is an empty space. x is a placeholder, it looks really ugly as a space
+
+
 let start = 'bbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
 const board = start.split("")
 class Rules {
