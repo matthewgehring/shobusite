@@ -17,7 +17,7 @@
 class Rules {
     constructor(board) {
         this.board = board;
-        this.two_space_moves=[10,-10,8,-8,6,-6,4,-4];
+        this.two_space_moves=[10,-10,8,-8,6,-6];
         this.one_space_moves=[5,-5,4,-4,3,-3,2,-2];
     }
 
