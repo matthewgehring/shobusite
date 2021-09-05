@@ -17,10 +17,13 @@ var SocketToSession ={};
 function socketEvents(socket){
     //session create (player 1)
     socket.on("create-session",(name)=> {
-        //create new session and store it to two datastructures
+
         //first create a unique code
         //TODO: Replace this we a UUID
         var code = Math.floor(Math.random()*1000000).toString();
+        
+        //create a new session, constructor takes a name, socket, and code.
+        //socket is created when the server is hit via navigating to localhost:3000 or the heroku instance. 
         const session = new Session(name,socket,code);
 
         codeToSession = {...codeToSession, 
@@ -121,6 +124,7 @@ io.on('connection',socketEvents);
 
 const port = process.env.PORT || 8000;
 
+//this is for the production build of the app
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
     app.get('*', (req,res)=>{

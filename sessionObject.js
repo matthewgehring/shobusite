@@ -1,33 +1,35 @@
-const {spawn} = require('child_process');
+const Rules = require("./Rules.js").Rules;
 
+//the sesssion object
 class Session{
-    
+    //each session has 2 players represented by these sockets which are created in server.js
     player_one_socket;
     player_two_socket;
 
-    gameState = {            //packaged data sent to frontend
+    //packaged data sent to frontend
+    gameState = {            
         p1_name: "",
         p2_name: "",
         p1_score: 0,
         p2_score: 0,
         ties: 0,
         p1_turn: true,
-        grids: [[1,1,1,1,
-            0,0,0,0,
-            0,0,0,0,
-            2,2,2,2],
-            [1,1,1,1,
-            0,0,0,0,
-            0,0,0,0,
-            2,2,2,2],
-            [1,1,1,1,
-            0,0,0,0,
-            0,0,0,0,
-            2,2,2,2],
-            [1,1,1,1,
-            0,0,0,0,
-            0,0,0,0,
-            2,2,2,2]]
+        grids: [['b','b','b','b',
+            'x','x','x','x',
+            'x','x','x','x',
+            'w','w','w','w'],
+            ['b','b','b','b',
+            'x','x','x','x',
+            'x','x','x','x',
+            'w','w','w','w'],
+            ['b','b','b','b',
+            'x','x','x','x',
+            'x','x','x','x',
+            'w','w','w','w'],
+            ['b','b','b','b',
+            'x','x','x','x',
+            'x','x','x','x',
+            'w','w','w','w']]
     }
     
 
@@ -48,42 +50,26 @@ class Session{
     }
   
     PlayerMove=(player, moves)=> {
-        let moveArr = moves.map(move => `${move[0]}, ${ ~~(move[1]/4)}, ${move[1]%4}`)
-        console.log(moves)
-        let board = this.getBoard(player, moveArr)
-        //this.gameState.grids[region][index]=value;
+        console.log(player, moves)
+        this.getBoard(player, moves)
         this.gameState.p1_turn = !this.gameState.p1_turn
     }
 
     updateBoard = (data) => {
         // console.log(data);
+        //takes a list of lists and then sets each corresponding region to the array
         for(let idx=0; idx<4; idx++){
             this.gameState.grids[idx] = data[idx].split('')
         }
         this.Broadcast("update",this.gameState);
     }
 
-    getBoard = (player, moveArr) => {
-        var dataToSend;
-        // console.log(moveArr)
-        // spawn new child process to call the python script
-        // console.log(['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`])
-        const python = spawn('python', ['legality_check.py', player, moveArr[0], moveArr[1], moveArr[2], `${this.gameState.grids[0]}`, `${this.gameState.grids[1]}`, `${this.gameState.grids[2]}`, `${this.gameState.grids[3]}`]);
-        // collect data from script
-        python.stdout.on('data', (data) => {
-        console.log('Pipe data from python script ...');
-        dataToSend = data.toString();
-        dataToSend = dataToSend.replace(/(\r\n|\r|\n)/, '')
-        if(!dataToSend.includes("Error")){
-            this.updateBoard(dataToSend.split('$'));
-        } else {
-            this.Broadcast("update",this.gameState);
-        }
-        });
-        // in close event we are sure that stream from child process is closed
-        python.on('close', (code) => {
-            console.log(`child process close all stdio with code ${code}`);
-        })
+    getBoard = (player, moves) => {
+        let flatBoard = this.gameState.grids.flat()
+        console.log(flatBoard)
+        let rules = new Rules(flatBoard)
+        let board = rules.updateBoard(moves[0], moves[1], moves[2], player, flatBoard)
+        console.log(board)
     }
 
     checkWinner = () => {
@@ -91,8 +77,6 @@ class Session{
     }
         
 }
-
-
 
 module.exports = {
     Session:Session

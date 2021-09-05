@@ -1,11 +1,13 @@
-let start = 'bbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
-const board = start.split("")
+// let start = 'bbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
+// const board = start.split("")
+
 class Rules {
     constructor(board) {
         this.board = board;
         this.two_space_moves=[10,-10,8,-8,6,-6,4,-4];
         this.one_space_moves=[5,-5,4,-4,3,-3,2,-2];
     }
+
     initialize_homeboard(color){
     if (color == "b"){
         var homeboard = [0, 1];
@@ -15,6 +17,7 @@ class Rules {
         }
     return homeboard;
     }
+
     check_if_valid(input1, input2, color){
         var invertboard = [0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15];
         var invertmoves = {'1': 4, '-1': -4, '5': 5, '-5': -5, '4': 1, '-4': -1, '-3': 3, '3': -3, '2': 8, '-2': -8, '10': 10, '-10': -10, '8': 2, '8': -2, '-6': 6, '6': -6};            
@@ -56,6 +59,7 @@ class Rules {
             return true;
         }
      }
+     
     check_if_pushes(input1,input2,color){          //#checks if a stone is being pushed, returns the location of the stone being pushed
         var move = input2 - input1
         if (this.two_space_moves.includes(move)){
@@ -77,9 +81,10 @@ class Rules {
         }
         return 'x'      //#shows nothing has been pushed
     }
+
     passive_move(input1,input2,color){
         var subboard=this.initialize_homeboard(color);
-        if ((board[input1] != color) || (board[input2] != 'x')){  //#checks if you select your own color or if you push another stone
+        if ((this.board[input1] != color) || (this.board[input2] != 'x')){  //#checks if you select your own color or if you push another stone
             return false;
         }
         if (!(subboard.includes(~~(input1/16)))){                    //#checks if passive move not on passive board
@@ -96,6 +101,7 @@ class Rules {
         }
         return true;
     }
+
     aggressive_move(input3,move,color,passive_board){
         var pushed_stone = this.check_if_pushes(input3, input3 + move, color);   //#returns the coordinate of the pushed stone, or 'x' if nothing pushed
         if (this.board[input3] != color){
@@ -127,6 +133,7 @@ class Rules {
         }
         return true;
     }
+    
     passive_aggressive(input1, input2, input3, color){
         var move = input2 - input1;
         var passive_board = ~~(input1/16);
@@ -140,7 +147,8 @@ class Rules {
         }
         return true;
     }
-    update_board(input1,input2,input3,color,input_board){
+
+    updateBoard(input1,input2,input3,color,input_board){
         if (color == 'w'){
         var opponent = 'b';
          }
@@ -193,13 +201,15 @@ class Rules {
         return string;
         }
 
-
+module.exports = {
+    Rules:Rules
+}
 //#testing
-const game = new Rules(board);
-var updated_board=game.update_board(45,39,28,'w',board);
-try{
-    console.log(convert_to_string(updated_board));
-}
-catch (err){
-    console.log(err);
-}
+// const game = new Rules(board);
+// var updated_board=game.update_board(45,39,28,'w',board);
+// try{
+//     console.log(convert_to_string(updated_board));
+// }
+// catch (err){
+//     console.log(err);
+// }
