@@ -55,11 +55,15 @@ class Session{
         this.gameState.p1_turn = !this.gameState.p1_turn
     }
 
-    updateBoard = (data) => {
+    updateBoard = (board) => {
         // console.log(data);
         //takes a list of lists and then sets each corresponding region to the array
+        let counter = 0
         for(let idx=0; idx<4; idx++){
-            this.gameState.grids[idx] = data[idx].split('')
+            for(let index=0; index<16; index++){
+                this.gameState.grids[idx][index] = board[counter]
+                counter += 1
+            }
         }
         this.Broadcast("update",this.gameState);
     }
@@ -68,8 +72,12 @@ class Session{
         let flatBoard = this.gameState.grids.flat()
         console.log(flatBoard)
         let rules = new Rules(flatBoard)
-        let board = rules.updateBoard(moves[0], moves[1], moves[2], player, flatBoard)
-        console.log(board)
+        let board = rules.updateBoard(moves[0][0], moves[1][0], moves[2][0], player, flatBoard)
+        if(typeof(board) == "boolean"){
+            console.log("here we should broadcast error and cause the board to do something")
+        } else {
+            this.updateBoard(board)
+        }
     }
 
     checkWinner = () => {
