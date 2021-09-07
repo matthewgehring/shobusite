@@ -58,7 +58,7 @@ class Rules {
             return false;
         }
         if (((invertboard[input1 % 16] + invertmoves[move]) % 16) < invertboard[input2 % 16]){   //#checks if goes off the board for left and right edges
-            console.log('left') //12 + 1 = 9 < 12
+            console.log('left') 
             return false;
         }
         if ((move < 0) && (input1 + move) % 16 > input1){
