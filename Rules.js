@@ -76,13 +76,16 @@ class Rules {
      
     check_if_pushes(input1,input2,color){          //#checks if a stone is being pushed, returns the location of the stone being pushed
         var move = input2 - input1
+        var opponent = ("w" ? "w" : "b")
         if (this.two_space_moves.includes(move)){
             if ((this.board[parseInt(input1+move/2)] != 'x') && (this.board[input2]=='x')){
                 return input1+move/2;    //#if stone moves past another stone, returns location of the stone being jumped over
-            }
-        
+            }     
             if ((this.board[parseInt(input1 + move / 2)] == 'x') && (this.board[input2] != 'x')){
                 return input2;           //# if stone moves onto other stone, returns location of stone being moved onto
+            }
+            if ((this.board[input2] !='x') && (!(this.check_if_valid(input2,(parseInt(input2+move)/2),opponent)))){ //#checks if pushed stone falls off board
+                return input2;
             }
             if ((this.board[parseInt(input1+move/2)] != 'x') && (this.board[input2]!='x')){
                 return false;          //# if move both jumps over a stone and lands on a stone, returns false
@@ -91,6 +94,12 @@ class Rules {
         if (this.one_space_moves.includes(move)){
             if ((this.board[input2] !='x') && (this.board[input2 + move] == 'x')){ //#checks if one space move lands on enemy stone
                 return input2;
+            }
+            if ((this.board[input2] !='x') && (!(this.check_if_valid(input2,parseInt(input2+move),opponent)))){ //#checks if pushed stone falls off board
+                return input2;
+            }
+            if ((this.board[input2] != 'x') && (this.board[input2 + move]!='x')){ //#checks if pushes two stones in a row
+                return False
             }
         }
         return 'x'      //#shows nothing has been pushed
@@ -183,13 +192,13 @@ class Rules {
         updated_board[input3 + move] = color;
  
         var pushed_stone = this.check_if_pushes(input3, (input3 + move), color)
+      
         if (pushed_stone != 'x'){
-            var pushed_stone=parseInt(pushed_stone);
             var pushed_stone = parseInt(pushed_stone);
             if (this.two_space_moves.includes(move)){  //#if move is 2 spaces, creates a 1 space move of same vector
                 move = parseInt((input1 + move / 2));
             }
-            if (!(this.check_if_valid(pushed_stone, parseInt(input1 + move * 2), color))){ //#checks if stone was pushed off board
+            if (!(this.check_if_valid(pushed_stone, parseInt(input3 + (move*2)), opponent))){ //#checks if stone was pushed off board
                 console.log('opponent ' + opponent + ' stone pushed off board from position ' + pushed_stone.toString());
             }
             else{
@@ -219,14 +228,13 @@ module.exports = {
     Rules:Rules
 }
 
-// let start = 'bbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
+// let start = 'bbbbxxxxbxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
 // const board = start.split("")
 // //#testing
 // const game = new Rules(board);
-// var updated_board_black = game.updateBoard(1,9,17,'b',board);
-// var updated_board = game.updateBoard(61,57,13,'w',board);
+// var update2 = game.updateBoard(61,56,13,'w',game.board);
 // try{
-//     console.log(convert_to_string(updated_board));
+//     console.log(convert_to_string(update2));
 // }
 // catch (err){
 //     console.log(err);
