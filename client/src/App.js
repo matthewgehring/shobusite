@@ -4,7 +4,7 @@ import Container from './components/Container';
 import Navigation from './components/Navigation';
 import Signin from './components/Signin';
 import Register from './components/Register';
-import background from "./assets/background.jpg"
+
 
 const initialState = {
   input: '',
@@ -16,10 +16,6 @@ const initialState = {
     email: '',
     joined: ''
   }
-}
-
-const styles = {
-  backgroundImage : `url(${background})`
 }
 
 function App() {
@@ -83,12 +79,12 @@ function App() {
   const { isSignedIn, route} = state;
   return (
     
-    <div className="App" style={styles}>
+    <div className="App" >
       {/* <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={onRouteChange}
         /> */}
-        <div style={styles}>
+        <div className = "container" >
           <Container/>
         </div>
       {/* {route === "home" ? (

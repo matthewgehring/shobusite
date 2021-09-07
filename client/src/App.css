@@ -28,6 +28,7 @@
 }
 
 .waiting-lobby{
+
   text-align: center;
   top: 45%;
   position: absolute;
@@ -161,7 +162,7 @@ div {
       height: 39vh;
       
       margin: 0 auto;
-      background-color:black;
+      background-color:rgb(0, 0, 0);
       color: rgb(0, 0, 0);
       display: grid;
       grid-template: repeat(4,1fr)/repeat(4,1fr);
@@ -178,6 +179,7 @@ div {
     height: 90%;
     width: 90%;
   }
+
   .square-inner{
       color: black;
       background-color: white;
