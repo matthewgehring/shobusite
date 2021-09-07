@@ -17,8 +17,8 @@
 class Rules {
     constructor(board) {
         this.board = board;
-        this.two_space_moves=[10,-10,8,-8,6,-6];
-        this.one_space_moves=[5,-5,4,-4,3,-3,2,-2];
+        this.two_space_moves=[10,-10,8,-8,6,-6,2,-2];
+        this.one_space_moves=[5,-5,4,-4,3,-3,1,-1];
     }
 
     initialize_homeboard(color){
@@ -33,7 +33,7 @@ class Rules {
 
     check_if_valid(input1, input2, color){
         var invertboard = [0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15];
-        var invertmoves = {'1': 4, '-1': -4, '5': 5, '-5': -5, '4': 1, '-4': -1, '-3': 3, '3': -3, '2': 8, '-2': -8, '10': 10, '-10': -10, '8': 2, '8': -2, '-6': 6, '6': -6};            
+        var invertmoves = {'1': 4, '-1': -4, '5': 5, '-5': -5, '4': 1, '-4': -1, '-3': 3, '3': -3, '2': 8, '-2': -8, '10': 10, '-10': -10, '8': 2, '-8': -2, '-6': 6, '6': -6};            
         //# dictionary mapping coordinates to an inverted matrix to detect move legality
         var valid_moves = [1, -1, 5, -5, 4, -4, 3, -3, 2, -2, 10, -10, 8, -8, 6, -6, 4, -4];     //#all valid movement vectors
 
@@ -48,6 +48,7 @@ class Rules {
         var input1 = input1 % 16;
         var input2 = input2 % 16;
         var move = input2 % 16 - input1 % 16;
+        
         if (!(valid_moves.includes(move))){     //#detects if illegal move like a knights move, or something
             console.log('just illegal')
             return false;
@@ -57,7 +58,7 @@ class Rules {
             return false;
         }
         if (((invertboard[input1 % 16] + invertmoves[move]) % 16) < invertboard[input2 % 16]){   //#checks if goes off the board for left and right edges
-            console.log('left')
+            console.log('left') 
             return false;
         }
         if ((move < 0) && (input1 + move) % 16 > input1){
@@ -220,9 +221,10 @@ module.exports = {
 
 // let start = 'bbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
 // const board = start.split("")
-//#testing
+// //#testing
 // const game = new Rules(board);
-// var updated_board=game.update_board(45,39,28,'w',board);
+// var updated_board_black = game.updateBoard(1,9,17,'b',board);
+// var updated_board = game.updateBoard(61,57,13,'w',board);
 // try{
 //     console.log(convert_to_string(updated_board));
 // }
