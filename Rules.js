@@ -224,18 +224,18 @@ class Rules {
         return string;
         }
 
-// module.exports = {
-//     Rules:Rules
-// }
+module.exports = {
+    Rules:Rules
+}
 
-let start = 'bbbbbxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
-const board = start.split("")
-//#testing
-const game = new Rules(board);
-var update2 = game.updateBoard(62,52,14,'w',game.board);
-try{
-    console.log(convert_to_string(update2));
-}
-catch (err){
-    console.log(err);
-}
+// let start = 'bbbbbxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
+// const board = start.split("")
+// //#testing
+// const game = new Rules(board);
+// var update2 = game.updateBoard(62,52,14,'w',game.board);
+// try{
+//     console.log(convert_to_string(update2));
+// }
+// catch (err){
+//     console.log(err);
+// }
