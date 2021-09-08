@@ -84,7 +84,7 @@ class Rules {
             if ((this.board[parseInt(input1 + move / 2)] == 'x') && (this.board[input2] != 'x')){
                 return input2;           //# if stone moves onto other stone, returns location of stone being moved onto
             }
-            if ((this.board[input2] !='x') && (!(this.check_if_valid(input2,(parseInt(input2+move)/2),opponent)))){ //#checks if pushed stone falls off board
+            if ((this.board[input2] !='x') && (!(this.check_if_valid(input2,(parseInt(input2+(move/2))),opponent)))){ //#checks if pushed stone falls off board
                 return input2;
             }
             if ((this.board[parseInt(input1+move/2)] != 'x') && (this.board[input2]!='x')){
@@ -224,18 +224,18 @@ class Rules {
         return string;
         }
 
-module.exports = {
-    Rules:Rules
-}
+// module.exports = {
+//     Rules:Rules
+// }
 
-// let start = 'bbbbxxxxbxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
-// const board = start.split("")
-// //#testing
-// const game = new Rules(board);
-// var update2 = game.updateBoard(61,56,13,'w',game.board);
-// try{
-//     console.log(convert_to_string(update2));
-// }
-// catch (err){
-//     console.log(err);
-// }
+let start = 'bbbbbxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
+const board = start.split("")
+//#testing
+const game = new Rules(board);
+var update2 = game.updateBoard(62,52,14,'w',game.board);
+try{
+    console.log(convert_to_string(update2));
+}
+catch (err){
+    console.log(err);
+}
