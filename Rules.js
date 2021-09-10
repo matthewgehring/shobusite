@@ -135,7 +135,7 @@ class Rules {
             console.log('move not on opposite colored board');
             return false;
         }
-        if (!(this.check_if_valid((input3) % 16, (input3 + move) % 16, color))){ //#checks if aggressive move pushes off board
+        if (!(this.check_if_valid((input3), (input3 + move), color))){ //#checks if aggressive move pushes off board
             console.log('Error: aggressive move out of bounds');
             return false;
         }
