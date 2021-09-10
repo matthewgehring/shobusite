@@ -20,15 +20,15 @@ const Landing = props => {
                 <h1 className="title">Shobu</h1>
                     <Button className="session-btn f6 dim ba br2 bw1 ph3 pv2 mr2 mb2 dib black bg-transparent" size="md" onClick={create_toggle} >Create Session</Button>
                     <Modal isOpen={modal_create} toggle={create_toggle} >
-                        <ModalHeader style={{width:"30%", margin:"0 auto"}} toggle={create_toggle}></ModalHeader>
-                        <ModalBody className="bg-white br4 shadow-5" style={{width:"30%", margin:"0 auto"}}>
+                        <ModalHeader className="modal"  toggle={create_toggle}></ModalHeader>
+                        <ModalBody className="modal bg-white br4 shadow-5" >
                             <CreateSession/>
                         </ModalBody>
                     </Modal>
                     <Button outline className="session-btn f6 link dim ba br2 bw1 ph3 pv2 mb2 dib black bg-transparent" size="md" onClick={join_toggle}>Join Session</Button>
                     <Modal isOpen={modal_join} toggle={join_toggle}>
-                        <ModalHeader style={{width:"30%", margin:"0 auto"}} toggle={join_toggle}></ModalHeader>
-                        <ModalBody className="bg-white br4 shadow-5" style={{width:"30%", margin:"0 auto"}}>
+                        <ModalHeader className="modal"  toggle={join_toggle}></ModalHeader>
+                        <ModalBody className="modal bg-white br4 shadow-5" >
                             <JoinSession/>
                         </ModalBody>
                     </Modal>

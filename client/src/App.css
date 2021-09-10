@@ -3,7 +3,6 @@
   display: grid;
   
   margin: 0 auto;
-  height: 100%;
   width: 100%;
   position: absolute;
   height: 20%;
@@ -139,8 +138,16 @@ div {
   user-select: none;
 }
 
+
+
+
 @media (orientation: landscape){
-  
+
+  .modal {
+    width: 50%;
+    margin:0 auto
+  }
+
   .board-container{
       
       position: absolute;
@@ -220,5 +227,12 @@ div {
   .session-btn{
       width: 30%;
       margin: 0 auto;  
+  }
+}
+
+@media (orientation:portrait){
+  .modal {
+    width: 80%;
+    margin:0 auto;
   }
 }

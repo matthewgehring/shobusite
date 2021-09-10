@@ -42,7 +42,7 @@ export default class joinSession extends Component {
                 <InputGroup style={{width:"50%", margin:"0 auto"}}>
                     <Input className="input-reset ba b--black-20 pa2 mb2 db w-100"onChange={this.updateForm} name="code" placeholder="session code"/>
                 </InputGroup>
-                <Button className="f6 link dim ba br2 bw1 ph3 pv2 mb2 dib black bg-moon-gray" onClick={this.submitForm} style={{width:"30%", margin:"0 auto"}}  color="primary">Join Session</Button>
+                <Button className="f6 link dim ba br2 bw1 ph3 pv2 dib black bg-moon-gray" onClick={this.submitForm} style={{width:"50%", margin:" auto"}}  color="primary">Join Session</Button>
                 
                 {this.state.invalid &&
                 <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
