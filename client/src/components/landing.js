@@ -15,27 +15,25 @@ const Landing = props => {
     
     return (
 
-        <AnimatePresence >
             <motion.div className="landing" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
                 <div className="br4 ba b--black-10 mv4 w-100 w-50-m w-25-l shadow-5 center">
                 <h1 className="title">Shobu</h1>
-                    <Button className="session-btn" color="primary" size="md" onClick={create_toggle} >Create Session</Button>
-                    <Modal isOpen={modal_create} toggle={create_toggle}>
-                        <ModalHeader toggle={create_toggle}></ModalHeader>
-                        <ModalBody>
+                    <Button className="session-btn f6 dim ba br2 bw1 ph3 pv2 mr2 mb2 dib black bg-transparent" size="md" onClick={create_toggle} >Create Session</Button>
+                    <Modal isOpen={modal_create} toggle={create_toggle} >
+                        <ModalHeader style={{width:"30%", margin:"0 auto"}} toggle={create_toggle}></ModalHeader>
+                        <ModalBody className="bg-white br4 shadow-5" style={{width:"30%", margin:"0 auto"}}>
                             <CreateSession/>
                         </ModalBody>
                     </Modal>
-                    <Button className="session-btn" color="primary" size="md" onClick={join_toggle}>Join Session</Button>
+                    <Button outline className="session-btn f6 link dim ba br2 bw1 ph3 pv2 mb2 dib black bg-transparent" size="md" onClick={join_toggle}>Join Session</Button>
                     <Modal isOpen={modal_join} toggle={join_toggle}>
-                        <ModalHeader toggle={join_toggle}></ModalHeader>
-                        <ModalBody>
+                        <ModalHeader style={{width:"30%", margin:"0 auto"}} toggle={join_toggle}></ModalHeader>
+                        <ModalBody className="bg-white br4 shadow-5" style={{width:"30%", margin:"0 auto"}}>
                             <JoinSession/>
                         </ModalBody>
                     </Modal>
                     </div>
                 </motion.div>
-        </AnimatePresence>
 
 
 

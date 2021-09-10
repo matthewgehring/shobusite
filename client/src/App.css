@@ -12,15 +12,8 @@
 
 }
 
-.session-btn{
-  width: 45%;
-  margin: 0 auto;  
-}
-
 .session-page{
-  text-align: center;
-  
-  
+  text-align: center; 
   display: grid;
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
@@ -130,6 +123,7 @@
   align-items: center;
 } */
 
+
 .turn{
   display: grid;
   grid-template-rows: 1fr;
@@ -225,5 +219,6 @@ div {
   }
   .session-btn{
       width: 30%;
+      margin: 0 auto;  
   }
 }
