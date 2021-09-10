@@ -17,7 +17,7 @@ code {
     monospace;
 }
 
-@media (orientation: portrait){
+@media screen and (max-aspect-ratio: 13/9){
   body {
     background: url('./assets/ramin.jpg');
     -webkit-background-size: cover;
