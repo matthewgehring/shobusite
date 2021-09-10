@@ -191,7 +191,7 @@ div {
 
   .square-inner{
       color: black;
-      background-color: white;
+      background-image: url('./assets/ramin.jpg');
       align-items: center;
       justify-content: center;
       display: flex;
@@ -205,7 +205,8 @@ div {
   }
 
   .highlight{
-    background-color: greenyellow;
+    box-shadow: inset 200px 0 0 0.09px rgba(2, 19, 255, 0.5);
+    border-color: rgb(60, 0, 255);
   }
   .square-inner:active{
       font-size: 11vh;
