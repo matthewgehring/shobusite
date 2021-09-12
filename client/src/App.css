@@ -36,93 +36,6 @@
   width: 100%;
 }
 
-/* .board-container{
-  position: absolute;
-  
-  height: 60%;
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  
-}
-
-.stats-container{
-  position: absolute;
-  top: 60%;
-  height: 40%;
-  width: 100%;
-  padding-left: 4.5vw;
-  padding-right: 4.5vw;
-  padding-bottom: 4.5vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.turn{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
-
-.stats{
-  display: grid;
-  grid-template-rows: 1fr 2fr;
-  height: 100%;
-  
-}
-
-
-.board {
-  
-  width: 73vh;
-  height: 73vh;
-  
-  margin: 0 auto;
-  background-color:black;
-  color: black;
-  display: grid;
-  grid-template: repeat(3,1fr)/repeat(3,1fr);
-  
-  border:0.5vw solid rgb(0, 0, 0);
-  
-  justify-self: center;
-  
-}
-
-.region0{
-
-}
-
-
-
-.square-inner{
-  color: black;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  font-size: 13vw;
-  border:0.5vw solid rgb(0, 0, 0);
-  
-  transition: 0.3s;
-  height:24vh;
-  width: 24vh;
-
-}
-
-
-
-.square-inner:active{
-  font-size: 11vw;
-  align-items: center;
-} */
-
-
 .turn{
   display: grid;
   grid-template-rows: 1fr;
@@ -130,16 +43,6 @@
   justify-content: center;
   
 }
-
-div {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-
-
 
 @media (orientation: landscape){
 
@@ -149,7 +52,6 @@ div {
   }
 
   .board-container{
-      
       position: absolute;
       text-align: center;
       height: 100%;
@@ -162,31 +64,27 @@ div {
       grid-template: repeat(2, 3fr)/repeat(2, 3fr);
       align-items: center;
       justify-content: center;
-      
   }
       
   .board {
-      
       width: 39vh;
       height: 39vh;
-      
       margin: 0 auto;
       background-color:rgb(0, 0, 0);
       color: rgb(0, 0, 0);
       display: grid;
       grid-template: repeat(4,1fr)/repeat(4,1fr);
-      
       border:0.5vh solid rgb(0, 0, 0);
-      
       justify-self: center;
-      
-      
   }
 
 
   .piece{
     height: 90%;
     width: 90%;
+  }
+  .rotate{
+    transform: rotate(180deg);
   }
 
   .square-inner{

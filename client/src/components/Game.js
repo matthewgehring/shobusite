@@ -81,7 +81,7 @@ const Game = (props) => {
           </AnimatePresence>}
         {!state.OpponentDisconnected && 
         <div className="game">
-          <div className="board-container">
+          <div className={"board-container" + (props.isPlayer_one ? " rotate": "")}>
             <Board region={0} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
             <Board region={1} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
             <Board region={2} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
