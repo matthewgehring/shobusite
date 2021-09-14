@@ -18,19 +18,19 @@ export default class Stats extends Component {
         const ties = gameState.ties;
         return (
             <AnimatePresence>
-            <motion.div className="stats" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
+            <motion.div className="stats bg-moon-gray br4 ba b--black-10 mv4 w-100 w-50 shadow-5 w-100  center" initial={{opacity:1}} animate={{opacity:1}} exit={{opacity:0}}>
                 {gameState.p1_turn === isPlayer_one &&
-                    <div className="turn">
+                    <div className="turn" >
                         <h5>Your Turn</h5>
                     </div>}
 
                 {gameState.p1_turn !== isPlayer_one &&
-                    <div className="turn" style={{display:"grid", gridTemplateRows:"1fr 1fr"}}>
+                    <div className="turn" >
                         <h5>{opponent_name}'s Turn</h5>
                         
-                        <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+                        {/* this can be used for loading <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
                             <Spinner color="dark" ></Spinner>
-                        </div>
+                        </div> */}
                     </div>}
 
                 <div style={{width:"100%", height:"100%", display:"grid", gridTemplateRows:"1fr 1fr",gridTemplateColumns:"1fr 1fr 1fr"}}>

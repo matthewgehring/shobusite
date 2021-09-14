@@ -25,10 +25,10 @@ const CreateSession = () => {
 
     return (
         <div className="session-page">
-            <InputGroup style={{width:"95%", margin:"0 auto"}}>
-                <Input placeholder="username" onChange={updateForm}/>
+            <InputGroup  style={{width:"50%", margin:"auto"}}>
+                <Input className="input-reset ba b--black-20 mt2 pa2 mb2 db w-100" placeholder="username" onChange={updateForm}/>
             </InputGroup>
-                <Button className="session-btn" color="primary" onClick={createSession}>Create & Join</Button>
+                <Button className="f6 link dim ba br2 bw1 ph3 pv2 mb2 dib black bg-moon-gray" style={{width:"50%", margin:"auto"}} color="primary" onClick={createSession}>Create & Join</Button>
         </div>
     )
 }
