@@ -207,8 +207,41 @@ class Rules {
         }
         return updated_board
     }
+    
+    posiblepassivemoves(square, board){
+        var color = board[square];
+        if (color == 'x') {
+            return console.log("Empty square, no possible moves");
+        }
+        var passivemoves = [];
+        for (var ele in this.two_space_moves){
+            var checkspace = parseInt(ele) + parseInt(square);
+            console.log(ele)
+            if (!(this.passive_move(square,checkspace,color))){   //Iterates through all possible 2 space moves and adds them if possible
+                passivemoves.push(checkspace);
+            }
+        }
+        for (var ele in this.one_space_moves){
+            var checkspace = parseInt(ele) + parseInt(square);
+            if (!(this.passive_move(square,checkspace,color))){   //Iterates through all possible 1 space moves and adds them if possible
+                passivemoves.push(checkspace);
+            }
+        }
+        return passivemoves // returns list of possible squares that you can move to "passively" for a given square
+        }
 
-}
+    posibleaggromoves(passivestone,move,color,board){
+        var passive_board = ~~(passivestone/16);
+        aggrostonesavailable = []
+        for (ele in board){
+            if (this.aggressive_move(ele,move,color,passive_board)){
+                aggrostonesavailable.push(ele)
+            }
+        }
+    }
+    }
+
+
     function convert_to_string(board){ //#converts the board back from a list into a string for readability
         string = board[0];
         for (i=1; i<board.length; i++){
@@ -224,18 +257,22 @@ class Rules {
         return string;
         }
 
-module.exports = {
-    Rules:Rules
-}
+   
 
-// let start = 'bbbbbxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
-// const board = start.split("")
-// //#testing
-// const game = new Rules(board);
-// var update2 = game.updateBoard(62,52,14,'w',game.board);
-// try{
-//     console.log(convert_to_string(update2));
+
+
+// module.exports = {
+//     Rules:Rules
 // }
-// catch (err){
-//     console.log(err);
-// }
+
+let start = 'bbbbbxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
+const board = start.split("")
+//#testing
+const game = new Rules(board);
+var update2 = game.posiblepassivemoves(62,game.board);
+try{
+    console.log(update2);
+}
+catch (err){
+    console.log(err);
+}
