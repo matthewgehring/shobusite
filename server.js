@@ -51,8 +51,6 @@ function socketEvents(socket){
         // console.log("socket", SocketToSession)
     })
 
-
-
     //join session (player 2)
     socket.on("join-session",(code,name)=>{
         //failed session code 

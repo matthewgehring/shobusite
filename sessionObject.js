@@ -44,9 +44,15 @@ class Session{
         this.player_two_socket = socket;
     }
     
+    SwitchTurn=() => {
+        this.player_one_socket.emit("player-turn", this.gameState.p1_turn)
+        this.player_two_socket.emit("player-turn", !this.gameState.p1_turn)
+    }
+    
     Broadcast=(event,data) => {
         this.player_one_socket.emit(event, data);
         this.player_two_socket.emit(event, data);
+        this.SwitchTurn()
     }
 
     InvalidBroadcast=(event, player) => {
