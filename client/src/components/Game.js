@@ -14,6 +14,9 @@ const initialState={
 
 const Game = (props) => {
     const [state, setState] = React.useState(initialState);
+    const [pulse, setPulse] = React.useState([0,0,1,1].map((x)=>x ^ props.isPlayer_one));
+
+    
 
     React.useEffect(()=>{
         socket.on("announcement", (text)=>{
@@ -83,10 +86,10 @@ const Game = (props) => {
         {!state.OpponentDisconnected && 
         <div className="game">
           <div className={"board-container" + (props.isPlayer_one ? " rotate": "")}>
-            <Board region={0} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board region={1} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board region={2} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board region={3} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board pulse = {pulse} region={0} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board pulse = {pulse} region={1} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board pulse = {pulse} region={2} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <Board pulse = {pulse} region={3} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
             
           </div>
           <div className="stats-container">
