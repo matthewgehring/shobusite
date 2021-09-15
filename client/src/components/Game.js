@@ -4,6 +4,7 @@ import Board from './Board';
 import Stats from './Stats';
 import Announcement from './Announcement';
 import socket from './../apis/port';
+import Chat from './Chat';
 
 const initialState={
     announcement: false,
@@ -91,6 +92,9 @@ const Game = (props) => {
           <div className="stats-container">
             {state.announcement && <Announcement>{state.message}</Announcement>}
             {!state.announcement && <Stats gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>}
+          </div>
+          <div className="chat-container">
+            <Chat props={props}/>
           </div>
         </div>
         }

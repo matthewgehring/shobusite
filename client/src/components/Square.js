@@ -6,6 +6,7 @@ let moves = []
 const Square = (props) => {
         
     const [highlight, setHighlight] = React.useState(false);
+    const [invalidMove, setInvalidMove] = React.useState(false);
     //this might be an issue
     const playerMove = (props) => {
         setHighlight(!highlight);
@@ -48,9 +49,24 @@ const Square = (props) => {
                 moves.length = 0;
             }, 500);
         }, [props.gameState.p1_turn])
+
+        React.useEffect(()=>{
+            socket.on("invalid-move", ()=>{
+                setInvalidMove(true)
+                moves.length = 0;
+            })
+        }, [])
+
+        React.useEffect(()=>{
+                setTimeout(()=>{
+                    setInvalidMove(false)
+                    setHighlight(false)
+                    moves.length = 0;
+                }, 300);
+            }, [invalidMove])
     
     return(
-        <div className={"square-inner" + (highlight ? " highlight" : "")} onClick={playerMove.bind(null, props)}>
+        <div className={"square-inner" + (highlight ? " highlight" : "") + (highlight & invalidMove ? " invalidMove" : "")} onClick={playerMove.bind(null, props)}>
             {renderValue(props.val) && <img className="piece" src={renderValue(props.val)} alt="" />}
         </div>
     

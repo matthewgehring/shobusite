@@ -48,11 +48,17 @@ class Session{
         this.player_one_socket.emit(event, data);
         this.player_two_socket.emit(event, data);
     }
+
+    InvalidBroadcast=(event, player) => {
+        if(player == "b"){
+            this.player_one_socket.emit(event, player)
+        } else{
+            this.player_two_socket.emit(event, player)
+        }
+    }
   
     PlayerMove=(player, moves)=> {
-        console.log(player, moves)
         this.getBoard(player, moves)
-        this.gameState.p1_turn = !this.gameState.p1_turn
     }
 
     updateBoard = (board) => {
@@ -65,16 +71,17 @@ class Session{
                 counter += 1
             }
         }
+        this.gameState.p1_turn = !this.gameState.p1_turn
         this.Broadcast("update",this.gameState);
     }
 
     getBoard = (player, moves) => {
         let flatBoard = this.gameState.grids.flat()
-        console.log(flatBoard)
         let rules = new Rules(flatBoard)
         let board = rules.updateBoard(moves[0][0], moves[1][0], moves[2][0], player, flatBoard)
         if(typeof(board) == "boolean"){
             console.log("here we should broadcast error and cause the board to do something")
+            this.InvalidBroadcast("invalid-move", player);
         } else {
             this.updateBoard(board)
         }
