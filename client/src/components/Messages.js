@@ -34,7 +34,7 @@ function Messages(props) {
   }, []);
 
   return (
-    <div className="message-list" style={{background: "red"}}>
+    <div className="message-list">
       {[...Object.values(messages)]
         .sort((a, b) => a.time - b.time)
         .map((message) => (

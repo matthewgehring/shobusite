@@ -6,13 +6,13 @@ const MessageInput = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        messageSocket.emit('message', message)
+        messageSocket.emit('message', props.code, message, `${props.name}`)
         setMessage('')
     }
 
     return (
         <form onChange={e => setMessage(e.target.value)} onSubmit={handleSubmit} className="message-input">
-            <input type="text" value={message} placeholder="input here"></input>
+            <input className="input pa2 w-100" type="text" value={message} placeholder="input here"></input>
         </form>
     )
 }

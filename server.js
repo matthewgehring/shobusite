@@ -13,10 +13,11 @@ const Session = require('./sessionObject').Session;
 
 var codeToSession = {}; //only for joining lobbies
 var SocketToSession ={};
+let MessageSocketToSession = {}
 
 function socketEvents(socket){
     //session create (player 1)
-    socket.on("create-session",(name)=> {
+    socket.on("create-session", (name)=> {
 
         //first create a unique code
         //TODO: Replace this we a UUID
@@ -31,7 +32,9 @@ function socketEvents(socket){
         
         SocketToSession = {...SocketToSession,
                         [socket.id]:session};
-        
+
+        MessageSocketToSession = {...MessageSocketToSession,
+                                    [code]: []}
         
         socket.emit("session-created",name,code);
         socket.on("disconnect", ()=> {
@@ -59,7 +62,7 @@ function socketEvents(socket){
         }
         else{
             codeToSession[code].JoinSession(name,socket);
-            codeToSession[code].Broadcast("valid-code",codeToSession[code].gameState);
+            codeToSession[code].Broadcast("valid-code", (code, codeToSession[code].gameState));
             SocketToSession = {...SocketToSession,
             [socket.id]: codeToSession[code]};
 
@@ -109,20 +112,21 @@ function socketEvents(socket){
 }
 const messages = []
 function messageEvents(socket){
-    socket.on('message', (message)=>{
-
+    socket.on('message', (code, message, name)=>{
+        const [socket1, socket2] = MessageSocketToSession[code]
         const packet = {id: uuidv4(),
-                        user: {name: "bob"},
+                        user: {name: name},
                         value: message,
-                        time: Date.now()}
-        console.log(packet)                
-        messages.push(packet)
-        messages.forEach((message) => socket.emit('message', message));
+                        time: Date.now()}              
+        // messages.push(packet)
+        // messages.forEach((message) => socket1.emit('message', message));
+        // messages.forEach((message) => socket2.emit('message', message));
+        socket1.emit('message', packet);
+        socket2.emit('message', packet);
     })
 
-    socket.on('getMessages', ()=>{
-        console.log(messages)
-        messages.forEach((message) => socket.emit('message', message));
+    socket.on('joined-chat', (code)=>{
+        MessageSocketToSession[code].push(socket)
     })
 }
 

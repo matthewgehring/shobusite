@@ -16,7 +16,7 @@ const Game = (props) => {
     const [state, setState] = React.useState(initialState);
     const [pulse, setPulse] = React.useState([0,0,1,1].map((x)=>x ^ props.isPlayer_one));
     const [secondClick, setSecondClick] = React.useState(false)
-    
+    const name = props.isPlayer_one ? props.p1_name : props.gameState.p2_name
 
     React.useEffect(()=>{
       socket.on("invalid-move", ()=>{
@@ -123,7 +123,7 @@ const Game = (props) => {
             {!state.announcement && <Stats gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>}
           </div>
           <div className="chat-container">
-            <Chat code={props.code} props={props}/>
+            <Chat name = {name} code={props.code} props={props}/>
           </div>
         </div>
         }
