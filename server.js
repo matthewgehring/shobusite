@@ -1,5 +1,5 @@
 //TODO: implement UUID for session codes
-
+const uuidv4 = require('uuid').v4;
 const express = require('express');
 const app = require('express')();
 const server = require('http').createServer(app);
@@ -84,41 +84,54 @@ function socketEvents(socket){
 
     //game logic
     socket.on("player-move", (player, moves)=> {
-
         
         SocketToSession[socket.id].PlayerMove(player, moves);
 
-        
         switch(SocketToSession[socket.id].checkWinner()){
-            case "player_one":
-                
+            case "player_one":                
                 SocketToSession[socket.id].Broadcast("announcement","player_one");
                 break;
             case "player_two":
-                
                 SocketToSession[socket.id].Broadcast("announcement","player_two");
                 break;
             case "tie":
-                
                 SocketToSession[socket.id].Broadcast("announcement","tie");
                 break;
             case "ongoing":
-                
                 break;
             default:
                 console.log("no switch cases hit");
-        
         }
-        
         
         //TODO: check winners before broadcasting
         SocketToSession[socket.id].Broadcast("update",SocketToSession[socket.id].gameState);
-        
+    })
+}
+const messages = []
+function messageEvents(socket){
+    socket.on('message', (message)=>{
 
+        const packet = {id: uuidv4(),
+                        user: {name: "bob"},
+                        value: message,
+                        time: Date.now()}
+        console.log(packet)                
+        messages.push(packet)
+        messages.forEach((message) => socket.emit('message', message));
+    })
+
+    socket.on('getMessages', ()=>{
+        console.log(messages)
+        messages.forEach((message) => socket.emit('message', message));
     })
 }
 
-io.on('connection',socketEvents);
+//main namespace
+io.on('connection', socketEvents);
+//message namespace
+const message = io.of("/message")
+message.on("connection", messageEvents)
+
 
 const port = process.env.PORT || 8000;
 

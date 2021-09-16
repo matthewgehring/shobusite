@@ -79,7 +79,7 @@ const Container = () => {
         <div>
             {state.landing && <Landing/>}
      
-            {state.lobby && <Lobby gameState={state.gameState} waiting={state.lobby_waiting} code={state.code} isPlayer_one={state.isPlayer_one} /> }
+            {state.lobby && <Lobby code={state.code} gameState={state.gameState} waiting={state.lobby_waiting} code={state.code} isPlayer_one={state.isPlayer_one} /> }
         </div>
     )
 }

@@ -4,10 +4,11 @@ import Messages from './Messages'
 import socket from './../apis/port';
 
 const Chat = (props) => {
+    
     return (
         <div className="chat">
-            <Messages/>
-            <MessageInput/>
+            <Messages code={props.code}/>
+            <MessageInput code={props.code}/>
         </div>
     )
 }

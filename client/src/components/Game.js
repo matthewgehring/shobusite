@@ -123,7 +123,7 @@ const Game = (props) => {
             {!state.announcement && <Stats gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>}
           </div>
           <div className="chat-container">
-            <Chat props={props}/>
+            <Chat code={props.code} props={props}/>
           </div>
         </div>
         }

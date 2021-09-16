@@ -20,7 +20,7 @@ const Lobby = (props) => {
     return(
       <div>
         {props.waiting && <Waiting code={state.code}/>}
-        {!props.waiting && <Game gameState={state.gameState} isPlayer_one={state.isPlayer_one}/>}
+        {!props.waiting && <Game code={props.code} gameState={state.gameState} isPlayer_one={state.isPlayer_one}/>}
       </div>
   )
 }
