@@ -14,9 +14,20 @@ const initialState={
 
 const Game = (props) => {
     const [state, setState] = React.useState(initialState);
+    const [pulse, setPulse] = React.useState([0,0,1,1].map((x)=>x ^ props.isPlayer_one));
+    const [secondClick, setSecondClick] = React.useState(false)
+    const name = props.isPlayer_one ? props.p1_name : props.gameState.p2_name
 
     React.useEffect(()=>{
-        socket.on("announcement", (text)=>{
+      socket.on("invalid-move", ()=>{
+        setPulse([0,0,1,1].map((x)=>x ^ props.isPlayer_one))
+        setSecondClick(false)
+      })
+      socket.on("player-turn", ()=>{
+        setPulse([0,0,1,1].map((x)=>x ^ props.isPlayer_one))
+        setSecondClick(false)
+      })    
+      socket.on("announcement", (text)=>{
             switch (text){
               case "player_one":
                 if(props.isPlayer_one){
@@ -71,6 +82,24 @@ const Game = (props) => {
           })
     }, [state, props.isPlayer_one])
 
+    const regionClick = (props, region) => {
+      const board = props.isPlayer_one ? 'b' : 'w';
+      const validBoards = {'b' : {0 : [0,1,0,1],
+                                  1 : [1,0,1,0],
+                                  2 : [1,1,0,0],
+                                  3 : [1,1,0,0]},  
+                          'w' : { 0 : [0,0,1,1],
+                                  1 : [0,0,1,1],
+                                  2 : [0,1,0,1],
+                                 3 : [1,0,1,0]}
+                              } 
+      if(secondClick){
+        setPulse(validBoards[board][region])
+      } else {
+        setSecondClick(true)
+      }
+    }
+
     return(
         <div style={{display:"flex", alignItems:"center", justifyContent:"center", height:"100%"}}>
         {state.OpponentDisconnected &&
@@ -83,10 +112,10 @@ const Game = (props) => {
         {!state.OpponentDisconnected && 
         <div className="game">
           <div className={"board-container" + (props.isPlayer_one ? " rotate": "")}>
-            <Board region={0} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board region={1} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board region={2} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
-            <Board region={3} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>
+            <div onClick={() => regionClick(props, 0)}><Board pulse = {pulse} region={0} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/></div>
+            <div onClick={() => regionClick(props, 1)}><Board pulse = {pulse} region={1} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/></div>
+            <div onClick={() => regionClick(props, 2)}><Board pulse = {pulse} region={2} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/></div>
+            <div onClick={() => regionClick(props, 3)}><Board pulse = {pulse} region={3} gameState={props.gameState} isPlayer_one={props.isPlayer_one}/></div>
             
           </div>
           <div className="stats-container">
@@ -94,7 +123,7 @@ const Game = (props) => {
             {!state.announcement && <Stats gameState={props.gameState} isPlayer_one={props.isPlayer_one}/>}
           </div>
           <div className="chat-container">
-            <Chat props={props}/>
+            <Chat name = {name} code={props.code} props={props}/>
           </div>
         </div>
         }

@@ -13,6 +13,7 @@ class Session{
         p1_score: 0,
         p2_score: 0,
         ties: 0,
+        code:'',
         p1_turn: true,
         grids: [['b','b','b','b',
             'x','x','x','x',
@@ -33,10 +34,10 @@ class Session{
     }
     
 
-    constructor(pl_one_name,pl_one_socket,code){
+    constructor(pl_one_name, pl_one_socket, code){
         this.gameState.p1_name = pl_one_name;
         this.player_one_socket = pl_one_socket;
-        this.code = code;  
+        this.gameState.code = code;  
     }
 
     JoinSession=(name,socket)=>{
@@ -44,9 +45,15 @@ class Session{
         this.player_two_socket = socket;
     }
     
+    SwitchTurn=() => {
+        this.player_one_socket.emit("player-turn", this.gameState.p1_turn)
+        this.player_two_socket.emit("player-turn", !this.gameState.p1_turn)
+    }
+    
     Broadcast=(event,data) => {
         this.player_one_socket.emit(event, data);
         this.player_two_socket.emit(event, data);
+        this.SwitchTurn()
     }
 
     InvalidBroadcast=(event, player) => {
