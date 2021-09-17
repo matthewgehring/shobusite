@@ -48,7 +48,6 @@ class Rules {
         var input1 = input1 % 16;
         var input2 = input2 % 16;
         var move = input2 % 16 - input1 % 16;
-        
         if (!(valid_moves.includes(move))){     //#detects if illegal move like a knights move, or something
             console.log('just illegal')
             return false;
@@ -76,30 +75,30 @@ class Rules {
      
     check_if_pushes(input1,input2,color){          //#checks if a stone is being pushed, returns the location of the stone being pushed
         var move = input2 - input1
-        var opponent = ("w" ? "w" : "b")
+        var opponent = (color == "w" ? "b" : "w")
         if (this.two_space_moves.includes(move)){
             if ((this.board[parseInt(input1+move/2)] != 'x') && (this.board[input2]=='x')){
                 return input1+move/2;    //#if stone moves past another stone, returns location of the stone being jumped over
             }     
-            if ((this.board[parseInt(input1 + move / 2)] == 'x') && (this.board[input2] != 'x')){
+            if ((this.board[parseInt(input1 + move/2)] == 'x') && (this.board[input2] != 'x')){
                 return input2;           //# if stone moves onto other stone, returns location of stone being moved onto
+            }
+            if ((this.board[parseInt(input1+(move/2))] != 'x') && (this.board[input2]!='x')){
+                return false;          //# if move both jumps over a stone and lands on a stone, returns false
             }
             if ((this.board[input2] !='x') && (!(this.check_if_valid(input2,(parseInt(input2+(move/2))),opponent)))){ //#checks if pushed stone falls off board
                 return input2;
-            }
-            if ((this.board[parseInt(input1+move/2)] != 'x') && (this.board[input2]!='x')){
-                return false;          //# if move both jumps over a stone and lands on a stone, returns false
             }
         }
         if (this.one_space_moves.includes(move)){
             if ((this.board[input2] !='x') && (this.board[input2 + move] == 'x')){ //#checks if one space move lands on enemy stone
                 return input2;
             }
+            if ((this.board[input2] != 'x') && (this.check_if_valid(input2,parseInt(input2+move),opponent))){ //#checks if pushes two stones in a row
+                return false
+            }
             if ((this.board[input2] !='x') && (!(this.check_if_valid(input2,parseInt(input2+move),opponent)))){ //#checks if pushed stone falls off board
                 return input2;
-            }
-            if ((this.board[input2] != 'x') && (this.board[input2 + move]!='x')){ //#checks if pushes two stones in a row
-                return False
             }
         }
         return 'x'      //#shows nothing has been pushed
@@ -126,7 +125,7 @@ class Rules {
     }
 
     aggressive_move(input3,move,color,passive_board){
-        var pushed_stone = this.check_if_pushes(input3, input3 + move, color);   //#returns the coordinate of the pushed stone, or 'x' if nothing pushed
+        var pushed_stone = this.check_if_pushes(input3, input3 + move, color);  //#returns the coordinate of the pushed stone, or 'x' if nothing pushed
         if (this.board[input3] != color){
             console.log('must select your own stone');
             return false;
@@ -143,7 +142,7 @@ class Rules {
             console.log('you cannot push your own stone');
             return false;
         }
-        if (pushed_stone == false){       //#check_if_pushes returns false if two stones are pushed
+        if (pushed_stone === false){       //#check_if_pushes returns false if two stones are pushed
             console.log('cant push 2 stones');
             return false;
         }
@@ -185,18 +184,27 @@ class Rules {
         if (!(this.passive_aggressive(input1,input2,input3,color))){     //#verifies the move is legal
             return false;
         }
-
         updated_board[input1] = 'x';
         updated_board[input2] = color;
         updated_board[input3] = 'x';
         updated_board[input3 + move] = color;
- 
         var pushed_stone = this.check_if_pushes(input3, (input3 + move), color)
-      
+        
         if (pushed_stone != 'x'){
             var pushed_stone = parseInt(pushed_stone);
             if (this.two_space_moves.includes(move)){  //#if move is 2 spaces, creates a 1 space move of same vector
-                move = parseInt((input1 + move / 2));
+                move = parseInt((move / 2)); // changed input1 to input 3 for the correct vector
+                if (this.board[this.check_if_pushes(input3, parseInt(input3 + move), color)] == opponent){ // Checks to see if the move pushes in the first space of the 2 space move vector
+                updated_board[pushed_stone] = 'x'
+                }
+                if (!(this.check_if_valid(pushed_stone, parseInt(input3 + (move+halfmove)), opponent))){ //#checks if stone was pushed off board
+                    console.log('opponent ' + opponent + ' stone pushed off board from position ' + pushed_stone.toString());
+                }
+                else{
+                    updated_board[input3 + move + halfmove] = opponent;
+                    console.log(convert_to_string(updated_board))
+                    return updated_board
+                }
             }
             if (!(this.check_if_valid(pushed_stone, parseInt(input3 + (move*2)), opponent))){ //#checks if stone was pushed off board
                 console.log('opponent ' + opponent + ' stone pushed off board from position ' + pushed_stone.toString());
@@ -205,40 +213,41 @@ class Rules {
                 updated_board[input3 + move + halfmove] = opponent;
             }
         }
+        console.log(convert_to_string(updated_board))
         return updated_board
-    }
+        }
     
-    posiblepassivemoves(square, board){
-        var color = board[square];
-        if (color == 'x') {
-            return console.log("Empty square, no possible moves");
-        }
-        var passivemoves = [];
-        for (var ele in this.two_space_moves){
-            var checkspace = parseInt(ele) + parseInt(square);
-            console.log(ele)
-            if (!(this.passive_move(square,checkspace,color))){   //Iterates through all possible 2 space moves and adds them if possible
-                passivemoves.push(checkspace);
-            }
-        }
-        for (var ele in this.one_space_moves){
-            var checkspace = parseInt(ele) + parseInt(square);
-            if (!(this.passive_move(square,checkspace,color))){   //Iterates through all possible 1 space moves and adds them if possible
-                passivemoves.push(checkspace);
-            }
-        }
-        return passivemoves // returns list of possible squares that you can move to "passively" for a given square
-        }
+    // posiblepassivemoves(square, board){
+    //     var color = board[square];
+    //     if (color == 'x') {
+    //         return console.log("Empty square, no possible moves");
+    //     }
+    //     var passivemoves = [];
+    //     for (var ele in this.two_space_moves){
+    //         var checkspace = parseInt(ele) + parseInt(square);
+    //         console.log(ele)
+    //         if (!(this.passive_move(square,checkspace,color))){   //Iterates through all possible 2 space moves and adds them if possible
+    //             passivemoves.push(checkspace);
+    //         }
+    //     }
+    //     for (var ele in this.one_space_moves){
+    //         var checkspace = parseInt(ele) + parseInt(square);
+    //         if (!(this.passive_move(square,checkspace,color))){   //Iterates through all possible 1 space moves and adds them if possible
+    //             passivemoves.push(checkspace);
+    //         }
+    //     }
+    //     return passivemoves // returns list of possible squares that you can move to "passively" for a given square
+    //     }
 
-    posibleaggromoves(passivestone,move,color,board){
-        var passive_board = ~~(passivestone/16);
-        aggrostonesavailable = []
-        for (ele in board){
-            if (this.aggressive_move(ele,move,color,passive_board)){
-                aggrostonesavailable.push(ele)
-            }
-        }
-    }
+    // posibleaggromoves(passivestone,move,color,board){
+    //     var passive_board = ~~(passivestone/16);
+    //     aggrostonesavailable = []
+    //     for (ele in board){
+    //         if (this.aggressive_move(ele,move,color,passive_board)){
+    //             aggrostonesavailable.push(ele)
+    //         }
+    //     }
+    // }
     }
 
 
@@ -261,18 +270,30 @@ class Rules {
 
 
 
-// module.exports = {
-//     Rules:Rules
+module.exports = {
+    Rules:Rules
+}
+
+// let start = 'bbbbxxxxxxxxwwbwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbxxxxbxxxxwwww'
+// const board = start.split("")
+// //#testing
+// const game = new Rules(board);
+// var update2 = game.updateBoard(47,39,63,'w',game.board);
+// try{
+//     console.log(convert_to_string(update2));
+// }
+// catch (err){
+//     console.log(err);
 // }
 
-let start = 'bbbbbxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwww'
-const board = start.split("")
-//#testing
-const game = new Rules(board);
-var update2 = game.posiblepassivemoves(62,game.board);
-try{
-    console.log(update2);
-}
-catch (err){
-    console.log(err);
-}
+// # README
+// #  Board coordinates respond to list index follows:
+// #   0  1  2  3      16 17 18 19
+// #   4  5  6  7      20 21 22 23
+// #   8  9  10 11     24 25 26 27
+// #   12 13 14 15     28 29 30 31
+// #
+// #   32 33 34 35     48 49 50 51
+// #   36 37 38 39     52 53 54 55
+// #   40 41 42 43     56 57 58 59
+// #   44 45 46 47     60 61 62 63
