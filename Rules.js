@@ -207,7 +207,7 @@ class Rules {
                 }
                 else{
                     updated_board[input3 + move + halfmove] = opponent;
-                    console.log(convert_to_string(updated_board))
+                    // console.log(convert_to_string(updated_board))
                     return updated_board
                 }
             }
@@ -218,7 +218,7 @@ class Rules {
                 updated_board[input3 + move + halfmove] = opponent;
             }
         }
-        console.log(convert_to_string(updated_board))
+        // console.log(convert_to_string(updated_board))
         return updated_board
         }
     
