@@ -125,6 +125,7 @@ class Rules {
     }
 
     aggressive_move(input3,move,color,passive_board){
+        var opponent = (color == "w" ? "b" : "w")
         var pushed_stone = this.check_if_pushes(input3, input3 + move, color);  //#returns the coordinate of the pushed stone, or 'x' if nothing pushed
         if (this.board[input3] != color){
             console.log('must select your own stone');
@@ -150,6 +151,10 @@ class Rules {
             var pushed_stone = parseInt(pushed_stone);
             if (this.board[pushed_stone]==color){
                 console.log('cant push your own stone');
+                return false;
+            }
+            console.log(this.check_if_pushes(pushed_stone,pushed_stone+move,opponent))
+            if ((this.check_if_pushes(pushed_stone,pushed_stone+move,opponent) != 'x') && (this.check_if_valid(pushed_stone,parseInt(pushed_stone+move),opponent))){ //the pushed stone can't push another stone
                 return false;
             }
         }
@@ -189,7 +194,7 @@ class Rules {
         updated_board[input3] = 'x';
         updated_board[input3 + move] = color;
         var pushed_stone = this.check_if_pushes(input3, (input3 + move), color)
-        
+        console.log("Pushed " + pushed_stone)
         if (pushed_stone != 'x'){
             var pushed_stone = parseInt(pushed_stone);
             if (this.two_space_moves.includes(move)){  //#if move is 2 spaces, creates a 1 space move of same vector
@@ -274,11 +279,11 @@ module.exports = {
     Rules:Rules
 }
 
-// let start = 'bbbbxxxxxxxxwwbwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbxxxxbxxxxwwww'
+// let start = 'bbbbxxxxxxxbwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxxxwwwwbbbbxxxxxxbxwwww'
 // const board = start.split("")
 // //#testing
 // const game = new Rules(board);
-// var update2 = game.updateBoard(47,39,63,'w',game.board);
+// var update2 = game.updateBoard(60,52,15,'w',game.board);
 // try{
 //     console.log(convert_to_string(update2));
 // }

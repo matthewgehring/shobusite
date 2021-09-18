@@ -13,7 +13,7 @@ const Session = require('./sessionObject').Session;
 
 var codeToSession = {}; //only for joining lobbies
 var SocketToSession ={};
-let MessageSocketToSession = {}
+let MessageSocketToSession = {};
 
 function socketEvents(socket){
     //session create (player 1)
