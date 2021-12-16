@@ -6,10 +6,11 @@ const Board = (props) => {
     const [turn, setTurn] = React.useState(props.isPlayer_one)
 
     React.useEffect(() => {
+        console.log("board")
         socket.on("player-turn", (data) => {
             setTurn(data)
         })
-    })
+    }, [])
 
 
     return (

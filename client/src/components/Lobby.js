@@ -14,7 +14,7 @@ const Lobby = (props) => {
         gameState: gs
       })
     })
-  }, [state]);
+  }, []);
 
       
     return(

@@ -47,7 +47,7 @@ const Square = (props) => {
             setTimeout(()=>{
                 setHighlight(false);
                 moves.length = 0;
-            }, 500);
+            }, 50);
         }, [props.gameState.p1_turn])
 
         React.useEffect(()=>{
